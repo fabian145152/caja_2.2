@@ -1,0 +1,229 @@
+<?php
+session_start();
+
+include_once "../../../../funciones/funciones.php";
+
+$con = conexion();
+$con->set_charset("utf8mb4");
+
+
+// Conexión
+
+
+$tropa = isset($_POST['tropa']) ? (int) $_POST['tropa'] : 0;
+
+if ($tropa === 0) {
+    die("Error: No se recibió tropa.");
+}
+
+// 1️⃣ Obtener datos de la tropa
+$sql_tro = "SELECT * FROM completa WHERE tropa = ? LIMIT 1";
+$stmt = $con->prepare($sql_tro);
+$stmt->bind_param("i", $tropa);
+$stmt->execute();
+$dato_tropa = $stmt->get_result()->fetch_assoc();
+
+$nombre_titu   = $dato_tropa['nombre_titu'] ?? '';
+$apellido_titu = $dato_tropa['apellido_titu'] ?? '';
+$obs           = $dato_tropa['obs'] ?? '';
+
+// 2️⃣ Obtener móviles de la tropa
+$sql_moviles = "SELECT movil FROM completa WHERE tropa = ? ORDER BY movil";
+$stmt = $con->prepare($sql_moviles);
+$stmt->bind_param("i", $tropa);
+$stmt->execute();
+$res_mov = $stmt->get_result();
+
+$moviles = [];
+while ($fila = $res_mov->fetch_assoc()) {
+    $moviles[] = $fila['movil'];
+}
+
+// 3️⃣ Calcular total ajustado de semanas
+$total_ajustado = 0;
+if (!empty($moviles)) {
+    $placeholders = implode(',', array_fill(0, count($moviles), '?'));
+    $sql_sem = "SELECT SUM(
+                    CASE 
+                        WHEN total > x_semana THEN total - x_semana
+                        ELSE total
+                    END
+                ) AS total_ajustado
+                FROM semanas
+                WHERE movil IN ($placeholders)";
+
+    $stmt = $con->prepare($sql_sem);
+    $types = str_repeat('i', count($moviles));
+    $stmt->bind_param($types, ...$moviles);
+    $stmt->execute();
+    $res_sem = $stmt->get_result()->fetch_assoc();
+    $total_ajustado = $res_sem['total_ajustado'] ?? 0;
+}
+
+// 4️⃣ Datos de viajes con abono
+$viajes = [];
+if (!empty($moviles)) {
+    $placeholders = implode(',', array_fill(0, count($moviles), '?'));
+    $sql = "SELECT c.movil, c.x_viaje, a.importe, s.x_semana
+        FROM completa c
+        LEFT JOIN abono_viaje a ON c.x_viaje = a.id
+        LEFT JOIN semanas s ON c.movil = s.movil
+        WHERE c.movil IN ($placeholders)";
+    $stmt = $con->prepare($sql);
+    $types = str_repeat('i', count($moviles));
+    $stmt->bind_param($types, ...$moviles);
+    $stmt->execute();
+    $viajes = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+}
+
+// 5️⃣ Vouchers de cada móvil
+$vouchers = [];
+$gran_total = 0;
+$total_vouchers = 0;
+
+$sql_vou = "SELECT movil, viaje_no, reloj, peaje, equipaje, adicional, plus 
+            FROM voucher_validado WHERE movil = ?";
+
+$stmt = $con->prepare($sql_vou);
+foreach ($moviles as $movil) {
+    $stmt->bind_param("i", $movil);
+    $stmt->execute();
+    $res_vou = $stmt->get_result();
+    while ($row = $res_vou->fetch_assoc()) {
+        $tot_voucher = $row['reloj'] + $row['peaje'] + $row['equipaje'] + $row['adicional'] + $row['plus'];
+        $row['total'] = $tot_voucher;
+        $vouchers[] = $row;
+        $gran_total += $tot_voucher;
+        $total_vouchers++;
+    }
+}
+
+// Calcular descuentos
+$diez       = $gran_total * 0.10;
+$para_tropa = $gran_total - $diez;
+$total_trop = $para_tropa - $total_ajustado;
+?>
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COBRAR TROPAS</title>
+    <?php head() ?>
+    <link rel="stylesheet" href="../../../css/vista_con_voucher.css">
+    <link rel="stylesheet" href="../cobro_moviles/vista_cobro.css">
+    <link rel="stylesheet" href="tropas.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+
+<body>
+    <div class="zoom-vertical">
+        <br>
+        <form action="deposito_tropas.php" method="post" id="formulario" target="_blank">
+            <ul style="border: 2px solid black; padding: 10px; border-radius: 10px; list-style-type: none;">
+                <div id="contenedor">
+                    <h4>Estado de cuenta de la <strong>TROPA:</strong> <?= htmlspecialchars($tropa) ?>.</h4>
+                    <h5>
+                        Fecha: <?= date("d/m/Y") ?> -
+                        Semana <?= date('W') - 1 ?>
+                    </h5>
+                    <div class="column left-column">
+                        <h6><strong>TITULAR:</strong> <?= htmlspecialchars($nombre_titu . " " . $apellido_titu) ?></h6>
+                    </div>
+                    <div class="column left-column">
+                        <strong>COMENTARIOS:</strong> <?= htmlspecialchars($obs) ?>
+                    </div>
+                </div>
+            </ul>
+    </div>
+
+    <div class="recuadros-container">
+        <!-- 🔹 Viajes -->
+        <ul class="recuadro">
+            <h3>UNIDADES</h3>
+            <h4>abono semanal: <?php //echo $x_semana 
+                                ?></h4>
+            <?php if (!empty($viajes)): ?>
+                <table border="1" cellpadding="5">
+                    <tr>
+                        <th>Movil</th>
+                        <th>X Viaje</th>
+                        <th>x Semana</th>
+                    </tr>
+                    <?php foreach ($viajes as $row): ?>
+                        <tr>
+                            <td><?= $row['movil'] ?></td>
+
+                            <td><?= number_format($row['importe'], 2, ',', '.') ?></td>
+                            <td><?= number_format($row['x_semana'], 2, ',', '.') ?></td>
+
+                        </tr>
+                    <?php endforeach; ?>
+                </table>
+            <?php else: ?>
+                <p>No se encontraron registros para los móviles indicados.</p>
+            <?php endif; ?>
+        </ul>
+
+        <!-- 🔹 Vouchers -->
+        <ul class="recuadro">
+            <h3>VOUCHER</h3>
+            <table border="1" cellpadding="5">
+                <p>Revisar bien el calculo de la deuda de semanas</p>
+                <tr>
+                    <th>Movil</th>
+                    <th>Viaje_no</th>
+                    <th>Total</th>
+                </tr>
+                <?php foreach ($vouchers as $row): ?>
+                    <tr>
+                        <td><?= $row['movil'] ?></td>
+                        <td><?= $row['viaje_no'] ?></td>
+                        <td><?= number_format($row['total'], 2, ',', '.') ?></td>
+                    </tr>
+                <?php endforeach; ?>
+                <tr style="font-weight:bold; background:#f0f0f0;">
+                    <td colspan="2">TOTAL GENERAL</td>
+                    <td><?= number_format($gran_total, 2, ',', '.') ?></td>
+                </tr>
+                <tr style="background:#e0ffe0;">
+                    <td colspan="2">VOUCHER VALIDADOS</td>
+                    <td><?= $total_vouchers ?></td>
+                </tr>
+                <tr style="background:#e0ffe0;">
+                    <td colspan="2">DESCUENTOS</td>
+                    <td><?= number_format($para_tropa, 2, ',', '.') ?></td>
+                </tr>
+                <tr style="background:#e0ffe0;">
+                    <td colspan="2">Total de Semanas</td>
+                    <td><?= number_format($total_ajustado, 2, ',', '.') ?></td>
+                </tr>
+                <tr style="background:#ffe0e0;">
+                    <td colspan="2">
+                        <h4>A DEPOSITAR</h4>
+                    </td>
+                    <td>
+                        <h4><?= number_format($total_trop, 2, ',', '.') ?></h4>
+                    </td>
+                </tr>
+            </table>
+
+            <!-- Hidden inputs -->
+            <input type="hidden" name="tropa" value="<?= htmlspecialchars($tropa) ?>">
+            <?php foreach ($moviles as $movil): ?>
+                <input type="hidden" name="moviles[]" value="<?= htmlspecialchars($movil) ?>">
+            <?php endforeach; ?>
+        </ul>
+    </div>
+
+    <div class="recuadro-botones">
+        <div class="botonera">
+            <a href="../cobro_moviles/inicio_cobros.php">VOLVER</a>
+            <button type="submit">DEPOSITAR</button>
+        </div>
+    </div>
+    </form>
+</body>
+
+</html>
