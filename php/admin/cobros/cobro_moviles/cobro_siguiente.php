@@ -830,10 +830,15 @@ $sql_voucher = $con->query($sql_voucher);
             </form>
 
             <button type="button"
-                onclick="if(confirm('¿Tomo nota?. Si presiona aceptar \nno lo volvera a ver...')) window.open('depositar.php?movil=<?= $movil ?>', '_blank', 'width=800,height=600');"
+                onclick="if(confirm('\n\n\n\n TOMÓ NOTA?. \n\n\n\n Si presiona Aceptar, no lo volverá a ver.')) {
+                    window.open('depositar.php?movil=<?= $movil ?>', '_blank');
+                    window.close();
+                 }"
                 class="btn btn-dark">
                 DEPOSITAR
             </button>
+
+
 
             <br><br><br>
             <br><br><br>

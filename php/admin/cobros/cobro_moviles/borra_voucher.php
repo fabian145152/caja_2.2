@@ -2,7 +2,8 @@
 session_start();
 
 echo $id = $_GET['q'];
-include_once "../../../funciones/funciones.php";
+include_once "../../../../funciones/funciones.php";
+
 $con = conexion();
 $con->set_charset("utf8mb4");
 

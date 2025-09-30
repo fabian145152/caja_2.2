@@ -100,3 +100,4 @@ guardaCajaFinal($con, $movil, $fecha, $new_dep_ft, $saldo_ft, $saldo_voucher, $d
 
 
 header("Location:inicio_cobros.php");
+exit;
