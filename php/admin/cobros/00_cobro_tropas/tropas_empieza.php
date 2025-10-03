@@ -23,9 +23,10 @@ $stmt->bind_param("i", $tropa);
 $stmt->execute();
 $dato_tropa = $stmt->get_result()->fetch_assoc();
 
-$movil = isset($_POST['movil']) ? $_POST['movil'] : null;
-$apellido_titu = isset($dato_tropa['apellido_titu']) ? $dato_tropa['apellido_titu'] : '';
-$obs = isset($dato_tropa['obs']) ? $dato_tropa['obs'] : '';
+
+$nombre_titu   = $dato_tropa['nombre_titu'] ?? '';
+$apellido_titu = $dato_tropa['apellido_titu'] ?? '';
+$obs           = $dato_tropa['obs'] ?? '';
 
 // 2️⃣ Obtener móviles de la tropa
 $sql_moviles = "SELECT movil FROM completa WHERE tropa = ? ORDER BY movil";
@@ -53,7 +54,7 @@ if (!empty($moviles)) {
     $stmt->bind_param($types, ...$moviles);
     $stmt->execute();
     $res_sem = $stmt->get_result()->fetch_assoc();
-    $total_ajustado = isset($res_sem['total_ajustado']) ? $res_sem['total_ajustado'] : 0;
+    $total_ajustado = $res_sem['total_ajustado'] ?? 0;
 }
 //exit;
 // 4️⃣ Datos de viajes con abono
@@ -133,16 +134,9 @@ $total_trop = $para_tropa - $total_ajustado;
                         Fecha: <?= date("d/m/Y") ?> -
                         Semana <?= date('W') - 1 ?>
                     </h5>
-
-
-                    <?php
-                    // Inicializar variables por seguridad
-                    $nombre_titu   = isset($dato_tropa['nombre_titu']) ? $dato_tropa['nombre_titu'] : '';
-                    $apellido_titu = isset($dato_tropa['apellido_titu']) ? $dato_tropa['apellido_titu'] : '';
-                    ?>
-                    <h6><strong>TITULAR:</strong> <?php echo htmlspecialchars($nombre_titu . " " . $apellido_titu); ?></h6>
-
-
+                    <div class="column left-column">
+                        <h6><strong>TITULAR:</strong> <?= htmlspecialchars($nombre_titu . " " . $apellido_titu) ?></h6>
+                    </div>
                     <div class="column left-column">
                         <strong>COMENTARIOS:</strong> <?= htmlspecialchars($obs) ?>
                     </div>
@@ -221,7 +215,7 @@ $total_trop = $para_tropa - $total_ajustado;
                             <input type="number"
                                 name="viajes_validados[<?= $row['movil'] ?>]"
                                 class="viaje-input"
-                                data-importe="<?= isset($row['importe']) ? $row['importe'] : 0 ?>"
+                                data-importe="<?= $row['importe'] ?? 0 ?>"
                                 value="0"
                                 style="width:60px; text-align:center;" autofocus>
                         </td>
