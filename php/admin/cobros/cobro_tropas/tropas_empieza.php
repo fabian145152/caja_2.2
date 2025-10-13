@@ -39,6 +39,32 @@ while ($fila = $res_mov->fetch_assoc()) {
     $moviles[] = $fila['movil'];
 }
 
+##---------------------------------------------------------------------------
+// 🔹 2b️⃣ Calcular totales de saldo a favor y deuda anterior
+$total_saldo_favor = 0;
+$total_deuda_anterior = 0;
+
+if (!empty($moviles)) {
+    $placeholders = implode(',', array_fill(0, count($moviles), '?'));
+    $sql_saldos = "SELECT 
+                        SUM(saldo_a_favor_ft) AS total_saldo_favor,
+                        SUM(deuda_anterior) AS total_deuda_anterior
+                   FROM completa
+                   WHERE movil IN ($placeholders)";
+    $stmt = $con->prepare($sql_saldos);
+    $types = str_repeat('i', count($moviles));
+    $stmt->bind_param($types, ...$moviles);
+    $stmt->execute();
+    $res_saldos = $stmt->get_result()->fetch_assoc();
+
+    $total_saldo_favor = $res_saldos['total_saldo_favor'] ?? 0;
+    $total_deuda_anterior = $res_saldos['total_deuda_anterior'] ?? 0;
+}
+
+##---------------------------------------------------------------------------
+
+
+
 // 3️⃣ Calcular total ajustado de semanas
 $total_ajustado = 0;
 if (!empty($moviles)) {
@@ -97,7 +123,10 @@ foreach ($moviles as $movil) {
 // Calcular descuentos
 $diez       = $gran_total * 0.10;
 $para_tropa = $gran_total - $diez;
-$total_trop = $para_tropa - $total_ajustado;
+
+// 🔹 Incorporar saldo a favor y deuda anterior
+$total_trop = $para_tropa - $total_ajustado + $total_saldo_favor - $total_deuda_anterior;
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -133,8 +162,6 @@ $total_trop = $para_tropa - $total_ajustado;
                         Fecha: <?= date("d/m/Y") ?> -
                         Semana <?= date('W') - 1 ?>
                     </h5>
-
-
                     <?php
                     // Inicializar variables por seguridad
                     $nombre_titu   = isset($dato_tropa['nombre_titu']) ? $dato_tropa['nombre_titu'] : '';
@@ -149,13 +176,16 @@ $total_trop = $para_tropa - $total_ajustado;
                 </div>
             </ul>
     </div>
-
-
     <div class="recuadros-container">
         <ul class="recuadro">
             <h3>UNIDADES</h3>
-            <h4>ABONOS: <?php //echo $x_semana 
-                        ?></h4>
+            <h4>ABONOS:</h4>
+            <p>
+                <strong>Saldo a favor FT:</strong> <?= number_format($total_saldo_favor, 2, ',', '.') ?><br>
+                <strong>Deuda anterior:</strong> <?= number_format($total_deuda_anterior, 2, ',', '.') ?><br>
+                <strong>Total neto:</strong> <?= number_format($total_saldo_favor - $total_deuda_anterior, 2, ',', '.') ?>
+            </p>
+
             <?php if (!empty($viajes)): ?>
                 <table border="1" cellpadding="5">
                     <tr>
@@ -166,10 +196,8 @@ $total_trop = $para_tropa - $total_ajustado;
                     <?php foreach ($viajes as $row): ?>
                         <tr>
                             <td><?= $row['movil'] ?></td>
-
                             <td><?= number_format($row['importe'], 2, ',', '.') ?></td>
                             <td><?= number_format($row['x_semana'], 2, ',', '.') ?></td>
-
                         </tr>
                     <?php endforeach; ?>
                 </table>
@@ -177,9 +205,9 @@ $total_trop = $para_tropa - $total_ajustado;
                 <p>No se encontraron registros para los móviles indicados.</p>
             <?php endif; ?>
         </ul>
-
         <!-- 🔹 Vouchers -->
         <ul class="recuadro">
+
             <h3>VOUCHER</h3>
             <table border="1" cellpadding="5">
                 <tr>
@@ -198,22 +226,17 @@ $total_trop = $para_tropa - $total_ajustado;
                     <td colspan="2">TOTAL DE VOUCHER</td>
                     <td><?= number_format($gran_total, 2, ',', '.') ?></td>
                 </tr>
-
                 <tr style="background:#e0ffe0;">
                     <td colspan="2">DESCUENTOS</td>
                     <td><?= number_format($para_tropa, 2, ',', '.') ?></td>
                 </tr>
-
                 <tr style="background:#e0ffe0;">
                     <td colspan="2">Total de Semanas</td>
                     <td><?= number_format($total_ajustado, 2, ',', '.') ?></td>
                 </tr>
-
-
                 <tr style="background:#e0ffe0;">
                     <td colspan="3">VIAJES A VALIDAR</td>
                 </tr>
-
                 <?php foreach ($viajes as $row): ?>
                     <tr>
                         <td><?= $row['movil'] ?></td>
@@ -235,14 +258,19 @@ $total_trop = $para_tropa - $total_ajustado;
                     </td>
                     <td>
                         <h4 id="total_final"><?= number_format($total_trop, 2, ',', '.') ?></h4>
+                        <input type="hidden" id="total_trop" name="total_trop" value="<?php echo $total_trop ?>">
                     </td>
                 </tr>
-
+                <tr>
+                    <td colspan="3">
+                        <h3>Deposito FT</h3>
+                        <input type="text" id="dep_ft" name="dep_ft">
+                    </td>
+                </tr>
                 <script>
                     document.addEventListener("DOMContentLoaded", function() {
                         const inputs = document.querySelectorAll(".viaje-input");
                         const totalFinal = document.getElementById("total_final");
-
                         let totalBase = <?= json_encode($total_trop) ?>;
 
                         function recalcular() {
@@ -258,7 +286,6 @@ $total_trop = $para_tropa - $total_ajustado;
                                 maximumFractionDigits: 2
                             });
                         }
-
                         // recalcular al salir del input (TAB o blur)
                         inputs.forEach(input => {
                             input.addEventListener("blur", recalcular);
@@ -272,9 +299,8 @@ $total_trop = $para_tropa - $total_ajustado;
                         }
                     }
                 </script>
-
-
             </table>
+
 
             <!-- Hidden inputs -->
             <input type="hidden" name="tropa" value="<?= htmlspecialchars($tropa) ?>">
@@ -283,7 +309,6 @@ $total_trop = $para_tropa - $total_ajustado;
             <?php endforeach; ?>
         </ul>
     </div>
-
     <div class="recuadro-botones">
         <div class="botonera">
             <a href="../cobro_moviles/inicio_cobros.php">VOLVER</a>
