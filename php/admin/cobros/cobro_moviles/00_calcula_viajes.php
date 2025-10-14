@@ -73,6 +73,7 @@
 </head>
 
 <body>
+
     <?php
     $paga_x_semana = round($paga_x_semana); // Asegurate de que esté definido
     $imp_viaje = round($paga_x_viaje);
@@ -91,24 +92,25 @@
         <form>
             <div class="form-group">
                 <label for="cant_viajes">Viajes a cobrar:</label>
-                <input type="text" id="cant_viajes" name="cant_viajes" onblur="calcularYRestar()" required autofocus style="text-align: center;">
+                <input type="text" id="cant_viajes" name="cant_viajes" onblur="calcularYRestar()" required autofocus style="text-align: center; font-weight: bold; font-size: 20px">
             </div>
 
             <div class="form-group">
                 <label for="postergar_semana">Semanas postergadas:</label>
-                <input type="text" id="postergar_semana" name="postergar_semana" onblur="calcularYRestar()" value="0" style="text-align: center;">
+                <input type="text" id="postergar_semana" name="postergar_semana" onblur="calcularYRestar()" value="0" style="text-align: center; font-weight: bold; font-size: 20px">
             </div>
 
-          
+
 
             <input type="hidden" id="resultadoMultiplicacion" readonly>
 
             <div class="form-group">
                 <label for="resultadoResta">Resultado:</label>
-                <input type="text" id="resultadoResta" name="resultadoResta" style="background-color: yellow; text-align: center;" readonly>
+                <input type="text" id="resultadoResta" name="resultadoResta" style="background-color: yellow; text-align: center; font-weight: bold; font-size: 20px" readonly>
             </div>
 
             <p id="mensajeResultado" style="font-weight: bold;"></p>
+
         </form>
 
     </div>

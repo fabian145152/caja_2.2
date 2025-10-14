@@ -57,8 +57,8 @@ if (!empty($moviles)) {
     $stmt->execute();
     $res_saldos = $stmt->get_result()->fetch_assoc();
 
-    $total_saldo_favor = $res_saldos['total_saldo_favor'] ?? 0;
-    $total_deuda_anterior = $res_saldos['total_deuda_anterior'] ?? 0;
+    $total_saldo_favor = isset($res_saldos['total_saldo_favor']) ? $res_saldos['total_saldo_favor'] : 0;
+    $total_deuda_anterior = isset($res_saldos['total_deuda_anterior']) ? $res_saldos['total_deuda_anterior'] : 0;
 }
 
 ##---------------------------------------------------------------------------

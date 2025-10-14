@@ -23,7 +23,7 @@ if ($con->query($sql_temporales)) {
 } else {
     echo "Error al vaciar la tabla: " . $con->error;
 }
-
+/*
 $sql_validados = "TRUNCATE voucher_validado";
 
 if ($con->query($sql_validados)) {
@@ -32,6 +32,6 @@ if ($con->query($sql_validados)) {
 } else {
     echo "Error al vaciar la tabla: " . $con->error;
 }
-
+*/
 
 header('Location: inicio_voucher.php');
