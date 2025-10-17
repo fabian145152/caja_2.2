@@ -32,6 +32,6 @@ if ($con->query($sql_validados)) {
 } else {
     echo "Error al vaciar la tabla: " . $con->error;
 }
-*/
 
+*/
 header('Location: inicio_voucher.php');

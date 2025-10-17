@@ -2,6 +2,7 @@
 session_start();
 
 echo $id = $_GET['q'];
+
 include_once "../../../../funciones/funciones.php";
 
 $con = conexion();

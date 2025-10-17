@@ -173,33 +173,6 @@ $sql_voucher = $con->query($sql_voucher);
     <link rel="stylesheet" href="../../../css/vista_con_voucher.css">
 
     <link rel="stylesheet" href="vista_cobro.css">
-    <style>
-        .form-group {
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-        }
-
-        .form-group label {
-            width: 180px;
-            font-weight: bold;
-        }
-
-        .form-group input {
-            flex: 1;
-            padding: 5px;
-        }
-
-        .form-container {
-            max-width: 500px;
-            margin: auto;
-            padding: 20px;
-        }
-
-        #resultadoResta {
-            font-weight: bold;
-        }
-    </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script>
         function deleteProduct(cod_voucher) {
@@ -325,10 +298,15 @@ $sql_voucher = $con->query($sql_voucher);
                             <th class="col-sm-2"><?php echo $cc = $row_voucher['cc'] ?></th>
                             <?php
                             $fecha_original = $row_voucher['fecha'];
+                            // Crear un objeto DateTime desde la fecha original
                             $date = DateTime::createFromFormat('j/n/Y', $fecha_original);
+                            // Formatear la fecha en "dd-mm-yyyy"
                             $fecha_voucher = $date->format('d-m-Y');
+                            // Convertir la fecha a timestamp
                             $timestamp = strtotime($fecha_voucher);
+                            // Obtener el número de semana
                             $numeroSemana = date("W", $timestamp);
+                            //echo "El número de semana es: " . $numeroSemana;
                             ?>
                             <th class="col-sm-2"><?php echo $fecha_voucher ?></th>
                             <?php
@@ -381,69 +359,69 @@ $sql_voucher = $con->query($sql_voucher);
 
             <?php
 
-
-
             $viajes_de_la_semana_anterior = $can_viajes - $viajes_de_esta_semana;
-
 
             if ($tot_voucher > 0) {
             ?>
                 <div class="contenedor">
 
                     <div class="recuadro">
-                        Voucher depositados:
-                        <?php echo "<strong>" . $viajes_de_la_semana_anterior . "</strong>"; ?>
+                        Voucher depositados: <?php echo "<strong>" . $viajes_de_la_semana_anterior . "</strong>" ?>
                     </div>
-
+                    <!--
+                <div class="recuadro">
+                    Viajes que se cobran la semana que viene: <?php echo "<strong>" . $viajes_de_esta_semana . "</strong>" ?>
+                </div>
+        -->
                     <div class="recuadro">
-                        Total de voucher:
-                        <?php echo "<strong>$" . number_format($total, 2) . "-</strong>"; ?>
+                        Total de voucher: <?php echo "<strong>" . "$" . $total . "-" . "</strong>" ?>
                     </div>
-
                     <div class="recuadro">
-                        <?php $total_descu = $total * 0.9; ?>
-                        Descuentos:
-                        <?php echo "<strong>$" . number_format($total_descu, 2) . "-</strong>"; ?>
+                        <?php
+                        $total_descu = $total * .9;
+                        ?>
+                        Descuentos: <?php echo "<strong>" . "$" . $total_descu . "-" . "</strong>" ?>
                     </div>
                 </div>
             <?php
             }
             ?>
-
             </p>
 
             <?php
             if ($venta_2 != 0) {
             ?>
-                <h6>Compro: <?php echo $row_venta_2['nombre'] . " " . "a" . " " . "$" . $ven_2 = $row_venta_2['precio'] ?>-</h6>
+                <h5>Compró: <?php echo $row_venta_2['nombre'] . " " . "a" . " " . "$" . $ven_2 = $row_venta_2['precio'] ?>-</h5>
             <?php
             }
             if ($venta_3 != 0) {
             ?>
-                <h6>Compro: <?php echo $row_venta_3['nombre'] . " " . "a" . " " . "$" . $ven_3 = $row_venta_3['precio'] ?>-</h6>
+                <h5>Compró: <?php echo $row_venta_3['nombre'] . " " . "a" . " " . "$" . $ven_3 = $row_venta_3['precio'] ?>-</h5>
             <?php
             }
             if ($venta_4 != 0) {
             ?>
-                <h6>Compro: <?php echo $row_venta_4['nombre'] . " " . "a" . " " . "$" . $ven_4 = $row_venta_4['precio'] ?>-</h6>
+                <h5>Compró: <?php echo $row_venta_4['nombre'] . " " . "a" . " " . "$" . $ven_4 = $row_venta_4['precio'] ?>-</h5>
             <?php
             }
 
             if ($venta_5 != 0) {
             ?>
-                <h6>Compro: <?php echo $row_venta_5['nombre'] . " " . "a" . " " . "$" . $ven_5 = $row_venta_5['precio'] ?>-</h6>
+                <h5>Compró: <?php echo $row_venta_5['nombre'] . " " . "a" . " " . "$" . $ven_5 = $row_venta_5['precio'] ?>-</h5>
             <?php
             }
             if ($venta_1 != 0) {
             ?>
 
-                <h6>Compro: <?php echo $row_venta_1['nombre'] . " " . "a" . " " . "$" . $ven_1 = $row_venta_1['precio'] ?>-</h6>
+                <h5>Compró: <?php echo $row_venta_1['nombre'] . " " . "a" . " " . "$" . $ven_1 = $row_venta_1['precio'] ?>-</h5>
                 <?php
                 $total_ventas = $ven_1 + $ven_2 + $ven_3 + $ven_4 + $ven_5;
                 ?>
             <?php
             }
             ?>
+
+
 
             <!-- <form action="cobro_fin.php" method="post" id="formulario" target="_blank"> -->
             <form action="cobro_fin.php" method="post" id="formulario" name="formulario">
@@ -456,12 +434,14 @@ $sql_voucher = $con->query($sql_voucher);
 
                         <ul style="border: 2px solid black; padding: 40px; border-radius: 10px; list-style-type: none;">
 
+                            <!--   <h5>-------------------------------------------------------------------------</h5>  -->
                             <h2>ESTADO DE CUENTA</h2>
 
                             <?php
                             $abo_sem = $row_semana['importe'];
                             $cant_sem = $deuda_semanas_anteriores / $abo_sem;
                             $cobra_semana_anterior = $deuda_semanas_anteriores;
+                            //$cobra_semana_anterior = $deuda_semanas_anteriores - $paga_x_semana;
                             $deudas_sumadas = $deuda_ant + $cobra_semana_anterior;
                             $debe_deuda = $total_ventas + $cobra_semana_anterior + $deuda_anterior - $saldo_a_favor;
 
@@ -476,7 +456,9 @@ $sql_voucher = $con->query($sql_voucher);
                                 $res_p = $con->query($sql_p);
                                 $row_p = $res_p->fetch_assoc();
                                 $paga_semanas = $row_p['activo'];
+                                ?>
 
+                                <?php
                                 if ($paga_semanas == "NO") {
                                 ?>
                                     <label class="mi-label">NO abona semanas... </label>
@@ -485,11 +467,10 @@ $sql_voucher = $con->query($sql_voucher);
                                 ?>
                             <li>
                                 <label class="mi-label">Paga por semana</label>
-                                <input type="text" id="paga_x_semana" name="paga_x_semana"
-                                    value="<?php echo $paga_x_semana ?>" readonly
-                                    style="text-align: center; font-weight: bold; font-size: 20px">
-                            </li>
+                                <input type="text" id="paga_x_semana" name="paga_x_semana" style="text-align: center; font-size: 18px; font-weight: bold;"
 
+                                    value="<?php echo $paga_x_semana ?> " readonly>
+                            </li>
                         <?php
                                 }
 
@@ -499,31 +480,21 @@ $sql_voucher = $con->query($sql_voucher);
                         ?>
                             <li>
                                 <label class="mi-label">Paga por viaje</label>
-                                <input type="text" id="paga_x_semana" name="paga_x_viaje"
-                                    value="<?php echo $paga_x_viaje ?>" readonly
-                                    style="text-align: center; font-weight: bold; font-size: 20px">
+                                <input type="text" id="paga_x_semana" name="paga_x_viaje" style="text-align: center; font-size: 18px; font-weight: bold;"
+                                    value="<?php echo $paga_x_viaje ?>" readonly>
                             </li>
                         <?php
-                                }
 
-                                if ($deuda_anterior == 0) {
-                        ?>
-                            <br>
-                            <h3 style="color: green;">'Estas al día...'</h3>
-                        <?php
                                 }
+                                echo "<br>";
 
                                 if ($cobra_semana_anterior == $paga_x_semana) {
-
-                        ?>
-
-                        <?php
+                                    echo "<h4><strong>ESTA AL DIA...</strong></h4>";
                                 } else {
                                     $adu = $cobra_semana_anterior - $paga_x_semana;
                         ?>
-                            <label class=" mi-label">Debe semanas</label>
-                            <input type="text" id="debe_sem_ant" name="debe_sem_ant" value="<?php echo $adu ?>" readonly
-                                style="text-align: center; font-weight: bold; font-size: 20px">
+                            <label class="mi-label">Debe semanas</label>
+                            <input type="text" id="debe_sem_ant" name="debe_sem_ant" value="<?php echo $adu ?>" style='text-align: center; font-size: 18px; font-weight: bold;' readonly>
                         <?php
                                 }
                         ?>
@@ -535,7 +506,7 @@ $sql_voucher = $con->query($sql_voucher);
                             <?php
                             if ($total_ventas > 0) {
                                 echo "<label class='mi-label'>Total de ventas</label>";
-                                echo "<input type='text' id='total_ventas' name='total_ventas' value='$total_ventas' readonly>";
+                                echo "<input type='text' style='text-align: center; font-size: 18px; font-weight: bold;' id='total_ventas' name='total_ventas' value='$total_ventas' readonly  >";
                             }
                             ?>
                         </li>
@@ -550,7 +521,8 @@ $sql_voucher = $con->query($sql_voucher);
                         ?>
                             <label class="mi-label">TIENE SALDO A FAVOR:</label>
                             <input type="text" id="saldo_a_favor" name="saldo_a_favor" value="<?php echo $saldo_a_favor ?>"
-                                style="background-color: yellow;" readonly>
+                                style="background-color: yellow; text-align: center; font-size: 18px; font-weight: bold;" readonly>
+
                         <?php
                         }
                         if ($saldo_a_favor == 0 && $deu_ant == 0 && $cobra_semana_anterior == 0 && $total_ventas == 0) {
@@ -567,14 +539,24 @@ $sql_voucher = $con->query($sql_voucher);
                             $cobra_2 = $cobra_1 - $abo_sem;
 
                             $cobra_1 = abs($cobra_1);
+                            $cobra_2; // = abs($cobra_2);
+                            //Cobra 2 es la linea que se muestra
+                            //Cobra 1 es la que se cobra
+                            //$cobra_1 = $saldo_a_favor - $cobra_semana_anterior - $deu_ant - $total_ventas;
+                            //exit;
+
 
                             if ($deuda_anterior > 0) {
                             ?>
                                 <label class="mi-label">Deuda anterior:</label>
                                 <input type="text" id="deuda_ant" name="deuda_ant" value="<?php echo $deu_ant ?>"
-                                    style="background-color: orange; color: black;" readonly>
+                                    style="background-color: orange; color: black; text-align: center; font-size: 18px; font-weight: bold;" readonly>
+
+
+
                             <?php
                             }
+
                             ?>
                             <br>
 
@@ -586,15 +568,14 @@ $sql_voucher = $con->query($sql_voucher);
                                 <input type="hidden" id="depo_mov" name="depo_mov" value="<?php echo $cobra_1 ?>" readonly>
                                 <input type="text" id="" name="" value="<?php echo abs($cobra_2) ?>"
                                     style="background-color: green; color: yellow;" readonly>
-                                <ul style="border: 2px solid black; padding: 5px; border-radius: 10px; list-style-type: none;">
+                                <ul style="border: 2px solid black; padding: 5px; border-radius: 10px; list-style-type: none; text-align: center; font-size: 18px; font-weight: bold;">
                                 <?php
                             } elseif ($cobra_2 > 0) {
                                 ?>
                                     <label class="mi-label">DEUDA</label>
                                     <input type="hidden" id="depo_mov" name="depo_mov" value="<?php echo $cobra_1 ?>" readonly>
                                     <input type="text" id="" name="" value="<?php echo $cobra_2 ?>"
-                                        style="background-color: red; color: yellow; text-align: center;  font-weight: bold; font-size: 20px" readonly>
-                                    <!-- <ul style="border: 2px solid black; padding: 5px; border-radius: 10px; list-style-type: none;">  -->
+                                        style="background-color: red; color: yellow; text-align: center; font-size: 18px; font-weight: bold;" readonly>
                                 <?php
                             } elseif ($cobra_2 == 0) {
                                 ?>
@@ -685,7 +666,7 @@ $sql_voucher = $con->query($sql_voucher);
                                 $pesos_viajes = $total_de_viajes_que_se_cobran * $paga_x_viaje;
                                 ?>
                                 <input type="hidden" id="paga_x_viaje" name="paga_x_viaje" value="<?php echo $paga_x_viaje ?>">
-
+                                <label class="mi-label">Dep en Voucher:</label>
 
                                 <input type="hidden" id="saldo_a_favor" name="saldo_a_favor"
                                     value="<?php echo $saldo_a_favor ?>">
@@ -747,7 +728,7 @@ $sql_voucher = $con->query($sql_voucher);
                                         readonly>
                                     <label class="mi-label">Debe abonar: </label>
                                     <input type="text" id="deuda_semanas_anteriores" name="deuda_semanas_anteriores"
-                                        value="<?php echo $cobra_2 ?>" style="background-color: yellow; text-align: center;  font-weight: bold; font-size: 20px" readonly>
+                                        value="<?php echo $cobra_2 ?>" style='text-align: center; font-size: 22px; font-weight: bold; background-color: yellow;' readonly>
 
 
                             </li>
@@ -758,107 +739,53 @@ $sql_voucher = $con->query($sql_voucher);
                                     $voucher = 1;
                         ?>
                             <div class="recuadro" id="ing_via">
-                                <script>
-                                    let imp_viaje;
-                                    let imp_voucher;
-                                    let saldoAfavor;
-                                    let cant_viajes;
-
-
-
-                                    function calcularYRestar() {
-                                        const cant_viajes = parseFloat(document.getElementById('cant_viajes').value) || 0;
-                                        const semanasPostergadas = parseFloat(document.getElementById('postergar_semana').value) || 0;
-                                        const campoResultado = document.getElementById('resultadoResta');
-                                        const mensaje = document.getElementById('mensajeResultado');
-
-
-                                        const resultadoMultiplicacion = cant_viajes * imp_viaje;
-                                        const adicionalPorSemana = semanasPostergadas * paga_x_semana;
-                                        const resultadoResta = imp_voucher - resultadoMultiplicacion;
-                                        const resultadoFinal = resultadoResta + saldoAfavor + adicionalPorSemana;
-
-                                        //            console.log(resultadoMultiplicacion);
-
-                                        document.getElementById('resultadoMultiplicacion').value = resultadoMultiplicacion.toFixed(2);
-                                        campoResultado.value = resultadoFinal.toFixed(2);
-
-                                        if (resultadoFinal < 0) {
-                                            campoResultado.style.backgroundColor = "red";
-                                            mensaje.textContent = "Debe abonar";
-                                            mensaje.style.color = "red";
-                                        } else {
-                                            campoResultado.style.backgroundColor = "lightgreen";
-                                            mensaje.textContent = "Habrá que depositarle";
-                                            mensaje.style.color = "green";
-                                        }
-                                    }
-                                </script>
-
-
-                                <body>
-
-                                    <?php
-                                    $paga_x_semana = round($paga_x_semana); // Asegurate de que esté definido
-                                    $imp_viaje = round($paga_x_viaje);
-                                    $imp_voucher = round($dato_a_env);
-                                    echo "<script>
-                                          imp_viaje = $imp_viaje;
-                                          imp_voucher = $imp_voucher;
-                                          saldoAfavor = $saldo_a_favor;
-                                          paga_x_semana = $paga_x_semana;           
-                                         </script>";
-                                    ?>
-
-
-                                    <div class="form-container">
-                                        <form>
-                                            <div class="form-group">
-                                                <label for="cant_viajes">Viajes a cobrar:</label>
-                                                <input type="text" id="cant_viajes" name="cant_viajes" onblur="calcularYRestar()" required autofocus style="text-align: center; font-weight: bold; font-size: 20px">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="postergar_semana">Semanas postergadas:</label>
-                                                <input type="text" id="postergar_semana" name="postergar_semana" onblur="calcularYRestar()" value="0" style="text-align: center; font-weight: bold; font-size: 20px">
-                                            </div>
-                                            <input type="hidden" id="resultadoMultiplicacion" readonly>
-                                            <div class="form-group">
-                                                <label for="resultadoResta">Resultado:</label>
-                                                <input type="text" id="resultadoResta" name="resultadoResta" style="background-color: yellow; text-align: center; font-weight: bold; font-size: 20px" readonly>
-                                            </div>
-                                            <p id="mensajeResultado" style="font-weight: bold;"></p>
-                                        </form>
-                                    </div>
                                 <?php
-                                }
+                                    include "calcula_viajes.php";
+
                                 ?>
-
-                                <li>
-                                    <br>
-                                    <label class="mi-label">Deposito FT:</label>
-                                    <input type="text" id="dep_ft" name="dep_ft" placeholder="Ingrese dinero" autofocus required
-                                        style="text-align: center;  font-weight: bold; font-size: 20px">
-
-                                    <?php
-                                    $sem = $cant_sem - 1;
-                                    if ($sem > 0 && $noventa > 0) {
-                                    ?>
-                                        <style>
-                                            input#postergar_semana {
-                                                width: 50px;
-                                                /* o el tamaño que prefieras */
-                                                text-align: center;
-                                            }
-                                        </style>
-                                        <label class="mi-label"></label>
-
-                                </li>
                             </div>
                         <?php
-                                    }
+                                }
+                        ?>
 
-                                    if ($viajes_de_la_semana_anterior > 0) {
+                        <li>
+                            <br>
+                            <label class="mi-label" style='text-align: center; font-size: 22px; font-weight: bold;'>Deposito FT:</label>
+                            <input type="text" id="dep_ft" name="dep_ft" style='text-align: center; font-size: 22px; font-weight: bold;' placeholder="Ingrese dinero" autofocus required>
+
+
+                            <!---------------------------------------------------------------------------------- -->
+
+
+
+                            <?php
+                            $sem = $cant_sem - 1;
+                            if ($sem > 0 && $noventa > 0) {
+                            ?>
+                                <style>
+                                    input#postergar_semana {
+                                        width: 50px;
+                                        /* o el tamaño que prefieras */
+                                        text-align: center;
                                     }
+                                </style>
+                                <label class="mi-label"></label>
+                                <!--  
+                                  <button type="submit" maxlength="3" size="3" formaction="posterga_semana.php?movil=<?php echo $movil ?> & postergar_semana=<?php echo $postergar_semana ?>" class="btn btn-dark" target="_blank">POST SEMANAS</button>
+                                <input type="text" id="postergar_semana" name="postergar_semana" placeholder="N° de semanas..." value="0">
+                                -->
+
+
+
+
+                            <?php
+                            }
+                            ?>
+                        </li>
+
+                        <?php
+                        if ($viajes_de_la_semana_anterior > 0) {
+                        }
                         ?>
                         <li>
                         </li>

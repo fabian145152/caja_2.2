@@ -7,6 +7,7 @@ $con = conexion();
 $con->set_charset("utf8mb4");
 
 
+
 $sql_1 = "SELECT * FROM caja_final ORDER BY id DESC LIMIT 1";
 $sql_ve = $con->query($sql_1);
 $ver = $sql_ve->fetch_assoc();
@@ -62,21 +63,29 @@ $ver = $sql_ve->fetch_assoc();
     $monto_actual = $ver['saldo_ft'];
     $formateado = "$" . number_format($monto_actual, 2, ',', '.');
     ?>
-    <div class="centrado">
-        <!-- Monto original formateado -->
-        <input type="text" id="montoOriginal" value="<?php echo $formateado ?>" readonly>
+    <form action="actualiza_caja_final.php" method="post">
 
-        <!-- Valor a restar, también formateado -->
-        <label class='mi-label'>Ingrese el dimero a extraer y presione TAB</label>
-        <input type="text" id="valorARestar" placeholder="Ingresá un valor en pesos" autofocus>
+        <div class="centrado">
+            <!-- Monto original formateado -->
+            <input type="text" id="montoOriginal" value="<?php echo $formateado ?>" readonly>
 
-        <!-- Resultado formateado -->
-        <input type="text" id="resultado" placeholder="Resultado" readonly>
+            <!-- Valor a restar, también formateado -->
+            <input type="text" id="obs" name="obs" placeholder="Destino..." style="width: 300px; height: 35px;" required autofocus>
+            <label class='mi-label'>Ingrese el dimero a extraer y presione TAB</label>
+            <input type="text" id="valorARestar" name="valorARestar" placeholder="Ingresá un valor en pesos">
 
-        <br><br><br>
-        <div class="btn-group" role="group">
-            <button onclick="cerrarPagina()" class="btn btn-primary btn-sm">CERRAR PAGINA</button>
-        </div>
+
+            <!-- Resultado formateado -->
+            <input type="text" id="resultado" name="resultado" placeholder="Resultado" readonly>
+
+
+            <button type="submit">ACTUALIZAR</button>
+    </form>
+
+    <br><br><br>
+    <div class="btn-group" role="group">
+        <button onclick="cerrarPagina()" class="btn btn-primary btn-sm">CERRAR PAGINA</button>
+    </div>
     </div>
 
     <script>

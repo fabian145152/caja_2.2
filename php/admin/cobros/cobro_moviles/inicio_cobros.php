@@ -10,7 +10,6 @@ $_SESSION['time'];
 
 include_once "semana.php";
 
-
 $con = conexion();
 $con->set_charset("utf8mb4");
 $semana_actual = date("W");

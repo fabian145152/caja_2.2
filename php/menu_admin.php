@@ -50,26 +50,27 @@ if ($_SESSION['logueado']) {
                         <li><a href="usuario/inicio_usuario.php" class="btn btn-primary btn-block btn-sm">CREAR USUARIOS</a></li>
                         <br>
                         <li><a href="ayuda/help.php" target="_blank" class="btn btn-primary btn-block btn-sm">AYUDA</a></li>
-                        <!--                        <h3>BACKUP</h3>
-                        <li><a href="../Backup_DDBB/back.php" class=" btn btn-primary btn-block btn-sm">BACKUP</a></li>
+                        <h3>LICENCIA</h3>
+                        <li><a href="../php/admin/licencia/inicio.php" class=" btn btn-primary btn-block btn-sm" target="_blank">ACTUALIZAR LICENCIA</a></li>
+
                     </ul>
--->
-                        <ul class="list-group">
-                            <h3>UNIDADES</h3>
 
-                            <li><a href="ayuda/crear_para_cobrar.php" target="_blank" class="btn btn-info btn-block btn-sm">COMO ARMAR UNA UNIDAD</a></li>
-                            <br>
-                            <li><a href="admin/crear_no_de_movil/list_no_movil.php" target="_blank" class="btn btn-primary btn-block btn-sm">CREAR NUMERO DE MOVIL</a></li>
-                            <br>
-                            <li><a href="admin/tropas/lista_tropas.php" target="_blank" class="btn btn-primary btn-block btn-sm">CREAR / EDITAR TROPA</a></li>
-                            <br>
-                            <li><a href="admin/movil_nuevo/lista_movil.php" target="_blank" class="btn btn-primary btn-block btn-sm">CREAR EDITAR TITULAR / TROPA</a></li>
-                            <br>
-                            <li><a href="admin/uni_comp/list_uni_comp.php" class="btn btn-primary btn-block btn-sm" target="_blank">EDICION DE UNIDAD COMPLETA</a></li>
-                            <br>
-                            <li><a href="admin/observaciones/inicio_obs.php" target="_blank" class="btn btn-primary btn-block btn-sm">OBSERVACIONES X MOVIL.</a></li>
+                    <ul class="list-group">
+                        <h3>UNIDADES</h3>
 
-                        </ul>
+                        <li><a href="ayuda/crear_para_cobrar.php" target="_blank" class="btn btn-info btn-block btn-sm">COMO ARMAR UNA UNIDAD</a></li>
+                        <br>
+                        <li><a href="admin/crear_no_de_movil/list_no_movil.php" target="_blank" class="btn btn-primary btn-block btn-sm">CREAR NUMERO DE MOVIL</a></li>
+                        <br>
+                        <li><a href="admin/tropas/lista_tropas.php" target="_blank" class="btn btn-primary btn-block btn-sm">CREAR / EDITAR TROPA</a></li>
+                        <br>
+                        <li><a href="admin/movil_nuevo/lista_movil.php" target="_blank" class="btn btn-primary btn-block btn-sm">CREAR EDITAR TITULAR / TROPA</a></li>
+                        <br>
+                        <li><a href="admin/uni_comp/list_uni_comp.php" class="btn btn-primary btn-block btn-sm" target="_blank">EDICION DE UNIDAD COMPLETA</a></li>
+                        <br>
+                        <li><a href="admin/observaciones/inicio_obs.php" target="_blank" class="btn btn-primary btn-block btn-sm">OBSERVACIONES X MOVIL.</a></li>
+
+                    </ul>
                 </div>
                 <div class="col-md-3">
                     <ul class="list-group">

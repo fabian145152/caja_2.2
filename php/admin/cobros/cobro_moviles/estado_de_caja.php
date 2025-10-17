@@ -50,6 +50,7 @@ $res_le_1 = $con->query($leo_caj_1);
 
                         <th style="border: 1px solid black; padding: 5px;">FECHA</th>
                         <th style="border: 1px solid black; padding: 5px;">MOVIL</th>
+                        <th style="border: 1px solid black; padding: 5px;">EXTRACCION</th>
                         <th style="border: 1px solid black; padding: 5px;">ULT DEP FT</th>
                         <th style="border: 1px solid black; padding: 5px;">TOTAL EN FT</th>
                         <th style="border: 1px solid black; padding: 5px;">% MOVIL</th>
@@ -100,6 +101,7 @@ $res_le_1 = $con->query($leo_caj_1);
                                 <th style="border: 1px solid black; padding: 3px;"><?php $fechazz = $row['fecha'];
                                                                                     echo substr($fechazz, 0, 10)  ?></th>
                                 <th style="border: 1px solid black; padding: 3px;"><?php echo $row['movil'] ?></th>
+                                <th style="border: 1px solid black; padding: 3px;"><?php echo $row['retiro_ft'] ?></th>
                                 <th style="border: 1px solid black; padding: 3px;"><?php echo $pesos ?></th>
                                 <th style="border: 1px solid black; padding: 3px;"><?php echo $saldo_ca ?></th>
                                 <th style="border: 1px solid black; padding: 3px;"><?php echo $pa_movil ?></th>
