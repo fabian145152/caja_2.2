@@ -815,38 +815,48 @@ $sql_voucher = $con->query($sql_voucher);
                             formaction="cobro_fin.php"
                             class="btn btn-danger"
                             onclick="return confirm('¿Estás seguro de que quieres cobrar?');">
-                            COBRAR
+                            COBRAR Queda saldo a favor en contra o Al dia
                         </button>
                         <br>
 
-
-
                         <br>
-
-
-
-
 
                     </div>
 
-
                 </div>
-
-            </form>
-
-            <button type="button"
-                onclick="if(confirm('\n\n\n\n TOMÓ NOTA?. \n\n\n\n Si presiona Aceptar, no lo volverá a ver.')) {
-                    window.open('depositar.php?movil=<?= $movil ?>', '_blank');
-                    window.close();
-                 }"
-                class="btn btn-dark">
-                DEPOSITAR
-            </button>
-
+                <!--
+                <input type="text" id="inputResultado" name="resultadoResta">
+                <input type="text" id="inputPostergar" name="postergar_semana">
+                <input type="text" id="inputMovil" name="movil">
+                -->
+                <script>
+                    document.getElementById('inputResultado').value = localStorage.getItem('resultadoResta') || '';
+                    document.getElementById('inputPostergar').value = localStorage.getItem('postergar_semana') || '';
+                    document.getElementById('inputMovil').value = localStorage.getItem('movil') || '';
+                </script>
 
 
-            <br><br><br>
-            <br><br><br>
+                <form action="depositar.php" method="get">
+                    <input type="hidden" id="movil" name="movil" value="<?= $movil ?>">
+                    <input type="hidden" id="postergar_semana_input" name="postergar_semana">
+                    <input type="hidden" id="resultadoResta_input" name="resultadoResta">
+
+                    <button type="submit">Depositar</button>
+                </form>
+
+                <script>
+                    const form = document.querySelector('form[action="depositar.php"]');
+                    form.addEventListener('submit', function(e) {
+                        document.getElementById('postergar_semana_input').value = document.getElementById('postergar_semana').value;
+                        document.getElementById('resultadoResta_input').value = document.getElementById('resultadoResta').value;
+                    });
+                </script>
+
+
+
+
+                <br><br><br>
+                <br><br><br>
 
     </div>
     <?php foot() ?>

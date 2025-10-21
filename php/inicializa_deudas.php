@@ -9,7 +9,8 @@ if ($_SESSION['logueado']) {
 
     // Si se envía el formulario
     if (isset($_POST['actualizar'])) {
-        // Consulta para actualizar todos los registros
+
+        // Consulta para dejar en cero deuda la tabla completa
         $sql_completa = "UPDATE completa SET deuda_anterior = 0, 
                                             saldo_a_favor_ft = 0, 
                                             venta_1 = 0, 
@@ -21,69 +22,91 @@ if ($_SESSION['logueado']) {
                                             observaciones_deuda = '' ";
 
         if ($con->query($sql_completa) === TRUE) {
-            echo "<br>";
-            echo "Los tabla completa se actualizo correctamente.";
-            echo "<br>";
+            echo "<br>Los tabla completa se actualizo correctamente.";
         } else {
-            echo "Error al actualizar la tabla completa... " . $con->error;
+            echo "<br>Error al actualizar la tabla completa... " . $con->error;
             exit;
         }
 
+        ##------------------------------------------------------------------------
 
-
-
+        // Pone las deudas de semanas en cero
         $fecha = date("Y-m-d");
         $sql = "UPDATE semanas SET total = x_semana, fecha = '$fecha'";
         if ($con->query($sql) === TRUE) {
-            echo "Los valores se han actualizado correctamente.";
+            echo "<br>Los valores se han actualizado correctamente.";
         } else {
-            echo "Error al actualizar los valores: " . $con->error;
+            echo "<br>Error al actualizar los valores: " . $con->error;
         }
 
+        ##------------------------------------------------------------------------
 
-
-
+        // Elimina todos los recobos y los pone en cero
         $sql_recibo = "UPDATE recibo set numero = 1";
-
         if ($con->query($sql_recibo) === TRUE) {
-            echo "<br>";
-            echo "El numero de recibo se actualizo correctamente.";
-            echo "<br>";
+            echo "<br>El numero de recibo se actualizo correctamente.";
         } else {
-            echo "Error al actualizar los registros: " . $con->error;
+            echo "<br>Error al actualizar los registros: " . $con->error;
             exit;
         }
+        ##------------------------------------------------------------------------
 
+        // borra los voucher nuevos
         $sql_voucher_nuevos = "TRUNCATE TABLE voucher_nuevos";
         if ($con->query($sql_voucher_nuevos) === TRUE) {
-            echo "<br>";
-            echo "La tabla voucher nuevos se actualizo correctamente.";
-            echo "<br>";
+
+            echo "<br>La tabla voucher nuevos se actualizo correctamente.";
         } else {
-            echo "Error al actualizar los registros: " . $con->error;
+            echo "<br>Error al actualizar los registros: " . $con->error;
             exit;
         }
 
+        ##------------------------------------------------------------------------
+
+        // Borra voucher temorales
+        $sql_voucher_temporales = "TRUNCATE TABLE voucher_temporales";
+        if ($con->query($sql_voucher_temporales) === TRUE) {
+
+            echo "<br>La tabla voucher temporales se actualizo correctamente.";
+        } else {
+            echo "<br>Error al actualizar los registros: " . $con->error;
+            exit;
+        }
+
+        ##------------------------------------------------------------------------
+
+        // Borra voucher validados
+        $sql_voucher_validado = "TRUNCATE TABLE voucher_validado";
+        if ($con->query($sql_voucher_validado) === TRUE) {
+            echo "<br>La tabla voucher validado se actualizo correctamente.";
+        } else {
+            echo "<br>Error al actualizar los registros: " . $con->error;
+            exit;
+        }
+
+        ##------------------------------------------------------------------------        
+
+        // Borra la tabla caja final
         $sql_caja_final = "TRUNCATE TABLE caja_final";
         if ($con->query($sql_caja_final) === TRUE) {
-            echo "<br>";
-            echo "La tabla caja_final se actualizo correctamente.";
-            echo "<br>";
+            echo "<br>La tabla caja_final se actualizo correctamente.";
         } else {
-            echo "Error al actualizar la Caja_final: " . $con->error;
+            echo "<br>Error al actualizar la Caja_final: " . $con->error;
             exit;
         }
 
+        ##------------------------------------------------------------------------                
+
+        // Borra depositos a moviles
         $sql_dep_mov = "TRUNCATE TABLE depositos_a_moviles";
         if ($con->query($sql_dep_mov) === TRUE) {
-            echo "<br>";
-            echo "La tabla depositos a moviles se actualizo correctamente.";
-            echo "<br>";
+            echo "<br>La tabla depositos a moviles se actualizo correctamente.";
         } else {
-            echo "Error al actualizar La tabla depositos a moviles: " . $con->error;
+            echo "<br>Error al actualizar La tabla depositos a moviles: " . $con->error;
             exit;
         }
 
+        ##------------------------------------------------------------------------                
 
         $fecha = date("Y-m-d");
         $sql_crea_reg_0 = "INSERT INTO caja_final (movil, fecha) VALUES (0, '$fecha' )";
@@ -91,48 +114,24 @@ if ($_SESSION['logueado']) {
 
         // Verificamos el resultado de la ejecución
         if ($sql_guarda_reg_0 === TRUE) {
-            echo "<br>";
-            echo "Registro 0 creado exitosamente.";
-            echo "<br>";
+            echo "<br>Registro 0 creado exitosamente.";
         } else {
-            echo "Error al crear el registro 0: " . $con->error;
-            echo "<br>";
+            echo "<br>Error al crear el registro 0: " . $con->error;
             exit;
         }
 
-
-        $sql_voucher_temporales = "TRUNCATE TABLE voucher_temporales";
-        if ($con->query($sql_voucher_temporales) === TRUE) {
-            echo "<br>";
-            echo "La tabla voucher temporales se actualizo correctamente.";
-            echo "<br>";
-        } else {
-            echo "Error al actualizar los registros: " . $con->error;
-            exit;
-        }
-
-        $sql_voucher_validado = "TRUNCATE TABLE voucher_validado";
-        if ($con->query($sql_voucher_validado) === TRUE) {
-            echo "<br>";
-            echo "La tabla voucher validado se actualizo correctamente.";
-            echo "<br>";
-        } else {
-            echo "Error al actualizar los registros: " . $con->error;
-            exit;
-        }
+        ##------------------------------------------------------------------------                
 
         $sql_user_logeado = "TRUNCATE TABLE users_logeado";
         if ($con->query($sql_user_logeado) === TRUE) {
-            echo "<br>";
-            echo "La tabla usuarios logeados se actualizo correctamente.";
-            echo "<br>";
+            echo "<br>La tabla usuarios logeados se actualizo correctamente.";
         } else {
-            echo "Error al actualizar los registros: " . $con->error;
+            echo "<br>Error al actualizar los registros: " . $con->error;
             exit;
         }
 
+        ##------------------------------------------------------------------------                
 
-        // Ejemplo de uso
         $directorio = 'admin/cobros/recibos/';
         if (deleteAllFilesInDirectory($directorio)) {
             echo "<br>";
@@ -143,14 +142,13 @@ if ($_SESSION['logueado']) {
             //exit;
         }
 
+        ##------------------------------------------------------------------------                
 
         $sql_historial_de_pago = "TRUNCATE TABLE historial_de_pago";
         if ($con->query($sql_historial_de_pago) === TRUE) {
-            echo "<br>";
-            echo "La tabla historial de pago se actualizo correctamente.";
-            echo "<br>";
+            echo "<br>La tabla historial de pago se actualizo correctamente.";
         } else {
-            echo "Error al actualizar los registros: " . $con->error;
+            echo "<br>Error al actualizar los registros: " . $con->error;
             exit;
         }
 

@@ -1,5 +1,11 @@
 <?php
 // upload_licencia.php
+session_start();
+include_once "../../../funciones/funciones.php";
+$con = conexion();
+$con->set_charset("utf8mb4");
+
+
 $targetDir = __DIR__ . DIRECTORY_SEPARATOR; // misma carpeta
 $targetFile = $targetDir . 'licencia_encriptada.txt';
 $message = '';
@@ -34,6 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Subir Licencia</title>
+    <?php head() ?>
     <style>
         body {
             font-family: Arial;
@@ -71,7 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <label for="fileToUpload">Selecciona licencia_encriptada.txt:</label><br><br>
             <input type="file" name="fileToUpload" id="fileToUpload" accept=".txt" required>
             <br><br>
-            <button type="submit">Subir</button>
+            <button type="submit" class="btn btn-primary btn-sm">Subir</button>
         </form>
     </div>
 
@@ -79,13 +86,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <p>Ver el archivo actual:</p>
     <ul>
         <?php if (file_exists($targetFile)): ?>
-            <li><a href="licencia_encriptada.txt" target="_blank">licencia_encriptada.txt</a></li>
+            <li><a href="licencia_encriptada.txt" class="btn btn-primary btn-sm" target="_blank">licencia_encriptada.txt</a></li>
         <?php else: ?>
             <li>No hay licencia_encriptada.txt en la carpeta.</li>
         <?php endif; ?>
         <br><br><br>
-        <a href="desencriptar.php">DESBLOQUEAR</a>
-
+        <a href="desencriptar.php" class="btn btn-success btn-sm">DESBLOQUEAR</a>
+        <br><br><br>
+        <button onclick="cerrarPagina()" class="btn btn-danger btn-sm">CERRAR PAGINA</button>
+        <script>
+            function cerrarPagina() {
+                window.close();
+            }
+        </script>
     </ul>
 </body>
 

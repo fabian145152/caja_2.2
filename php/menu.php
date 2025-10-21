@@ -65,22 +65,21 @@ if ($_SESSION['logueado']) {
             <div class="row">
                 <div class="col-md-3">
                     <ul class="list-group">
+
                         <h3>USUARIOS</h3>
-                        <li><a href="usuario/inicio_usuario.php" class="btn btn-primary btn-block btn-sm">CREAR USUARIOS</a></li>
+                        <li><a href="usuario/inicio_usuario.php" class="btn btn-primary btn-block btn-sm" target="_blank">CREAR USUARIOS</a></li>
                         <br>
                         <li><a href="ayuda/help.php" target="_blank" class="btn btn-primary btn-block btn-sm">AYUDA</a></li>
-
                         <h3>BACKUP</h3>
+                        <li><a href="../Backup_DDBB/back.php" class=" btn btn-primary btn-block btn-sm">BACKUP
+                                <p>Realiza un backup de la DDBB para pruebas</p>
+                            </a></li>
+                        <h3>LICENCIA</h3>
+                        <li><a href="../php/admin/licencia/inicio.php" class=" btn btn-primary btn-block btn-sm" target="_blank">ACTUALIZAR LICENCIA
+                                <p>Debe cargar el archivo el 1° de cada mes</p>
+                            </a>
+                        </li>
 
-                        <li><a href="../Backup_DDBB/back.php" class=" btn btn-primary btn-block btn-sm">BACKUP desaparecio..
-                                <p>Este boton se ejecuta automatico en los otros menues tarea programada en el sercidor</p>
-                                <p>Verificar que se haga de lunes a viernes a las 00:15</p>
-                            </a></li>
-                        <br>
-                        <li><a href="#" class=" btn btn-primary btn-block btn-sm">BACKUP
-                                <p>Se ejecuta automaticamente en el disco donde esta Apache D:respaldos_caja</p>
-                                <p>Verificar que se haga diariamente a las 08:10 AM</p>
-                            </a></li>
                     </ul>
 
                     <ul class="list-group">
@@ -89,7 +88,7 @@ if ($_SESSION['logueado']) {
                         <br>
                         <li><a href="admin/crear_no_de_movil/list_no_movil.php" target="_blank" class="btn btn-primary btn-block btn-sm">CREAR NUMERO DE MOVIL</a></li>
                         <br>
-                        <li><a href="admin/tropas/lista_tropas.php" target="_blank" class="btn btn-primary btn-block btn-sm">CREAR NUEVA TROPA</a></li>
+                        <li><a href="admin/tropas/lista_tropas.php" target="_blank" class="btn btn-primary btn-block btn-sm">LISTAR TROPAS</a></li>
                         <br>
                         <li><a href="admin/movil_nuevo/lista_movil.php" target="_blank" class="btn btn-primary btn-block btn-sm">CREAR EDITAR TITULAR / TROPA </a></li>
                         <br>
@@ -139,7 +138,7 @@ if ($_SESSION['logueado']) {
                         <br>
                         <li> <a href="admin/deposito_a_cuenta/genera_dep.php" class="btn btn-secondary btn-block btn-sm" target="__blank">DEPOSITO A CUENTA DE LOS MOVILES</a></li>
                         <br>
-                        <li><a href="admin/cobros/inicio_cobros.php" target="_blank" class=" btn btn-primary btn-block btn-sm">COBRAR A MOVILES / TROPAS</a></li>
+                        <li><a href="admin/cobros/cobro_moviles/inicio_cobros.php" target="_blank" class=" btn btn-primary btn-block btn-sm">COBRAR MOVILES / TROPAS</a></li>
                         <br>
                         <li><a href="admin/historial/inicio_resumen.php" target="_blank" class=" btn btn-primary btn-block btn-sm">HISTORIAL DE PAGOS DEL MOVIL</a></li>
                         <br>
@@ -151,8 +150,6 @@ if ($_SESSION['logueado']) {
 
                         <h3>ESTADOS </h3>
                         <li><a href="admin/cobros/recibos" target="_blank" class=" btn btn-primary btn-block btn-sm">RECIBOS</a></li>
-                        <br>
-                        <li><a href="#" target="_blank" class=" btn btn-danger btn-block btn-sm">EDICION DE DEUDAS</a></li>
                         <br>
                         <li><a href="" target="_blank" class=" btn btn-danger btn-block btn-sm">ABOGADO</a></li>
                         <br>
@@ -168,13 +165,10 @@ if ($_SESSION['logueado']) {
                         <br>
                         <li><a href="" target="_blank" class=" btn btn-warning btn-block btn-sm">VER</a></li>
                         <br>
-
                     </ul>
                 </div>
                 <div class="col-md-3">
                     <ul class="list-group">
-
-
                         <h3>SIN TERMINAR</h3>
                         <li><a href="#" class=" btn btn-INFO btn-block btn-sm">INGRESOS</a></li>
                         <br>
@@ -187,19 +181,14 @@ if ($_SESSION['logueado']) {
                         <li><a href="admin/cobros/codigos_y_errores.php" class=" btn btn-info btn-block btn-sm" target="_blank">LISTADO DE CODIGOS Y ERRORES</a></li>
                         <br><br>
                         <h3>INICIALIZAR PROGRAMA</h3>
-
                         <button onclick="confirmarAccion()">INICIALIZAR DEUDAS
-                            <p>Este boton pone todos los importes en 0</p>
-                            <p>No borra ninguna unidad pero ninguna debe nada</p>
+                            <p>Este boton pone todas las deudas en 0</p>
                             <p>Se borran las listas de caja y extracciones</p>
                             <p>No se modifica nada de los moviles, ni productos en venta</p>
                         </button>
                         </li>
-
-
                     </ul>
                 </div>
-
             </div>
         </div>
         <br>

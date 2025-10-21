@@ -47,11 +47,14 @@ if ($_SESSION['logueado']) {
                 <div class="col-md-3">
                     <ul class="list-group">
                         <h3>USUARIOS</h3>
-                        <li><a href="usuario/inicio_usuario.php" class="btn btn-primary btn-block btn-sm">CREAR USUARIOS</a></li>
+                        <li><a href="usuario/inicio_usuario.php" class="btn btn-primary btn-block btn-sm" target="_blank">CREAR USUARIOS</a></li>
                         <br>
                         <li><a href="ayuda/help.php" target="_blank" class="btn btn-primary btn-block btn-sm">AYUDA</a></li>
                         <h3>LICENCIA</h3>
-                        <li><a href="../php/admin/licencia/inicio.php" class=" btn btn-primary btn-block btn-sm" target="_blank">ACTUALIZAR LICENCIA</a></li>
+                        <li><a href="../php/admin/licencia/inicio.php" class=" btn btn-primary btn-block btn-sm" target="_blank">ACTUALIZAR LICENCIA
+                                <p>Debe cargar el archivo el 1° de cada mes</p>
+                            </a>
+                        </li>
 
                     </ul>
 
@@ -62,7 +65,7 @@ if ($_SESSION['logueado']) {
                         <br>
                         <li><a href="admin/crear_no_de_movil/list_no_movil.php" target="_blank" class="btn btn-primary btn-block btn-sm">CREAR NUMERO DE MOVIL</a></li>
                         <br>
-                        <li><a href="admin/tropas/lista_tropas.php" target="_blank" class="btn btn-primary btn-block btn-sm">CREAR / EDITAR TROPA</a></li>
+                        <li><a href="admin/tropas/lista_tropas.php" target="_blank" class="btn btn-primary btn-block btn-sm">LISTAR TROPAS</a></li>
                         <br>
                         <li><a href="admin/movil_nuevo/lista_movil.php" target="_blank" class="btn btn-primary btn-block btn-sm">CREAR EDITAR TITULAR / TROPA</a></li>
                         <br>
@@ -117,9 +120,8 @@ if ($_SESSION['logueado']) {
                         <br>
                         <li> <a href="admin/deposito_a_cuenta/genera_dep.php" class="btn btn-secondary btn-block btn-sm" target="__blank">DEPOSITO A CUENTA DE LOS MOVILES</a></li>
                         <br>
-                        <!--      <li><a href="admin/depositos_a_moviles/inicio_movimientos.php" target="_blank" class=" btn btn-primary btn-block btn-sm">DEPOSITOS A LOS MOVILES</a></li>
+                        <li><a href="admin/historial/inicio_resumen.php" target="_blank" class=" btn btn-primary btn-block btn-sm">HISTORIAL DE PAGOS DEL MOVIL</a></li>
                         <br>
--->
                         <li><a href="admin/cobros/cobro_moviles/estado_de_caja.php" target="_blank" class=" btn btn-primary btn-block btn-sm">RESUMEN DE CAJA</a></li>
                         <br>
                         <li><a href="admin/salida_caja/inicio_salida.php" target="_blank" class=" btn btn-primary btn-block btn-sm">EXTRACIONES</a></li>

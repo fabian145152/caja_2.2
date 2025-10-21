@@ -53,11 +53,11 @@ $con->set_charset("utf8mb4");
         </style>
         <div class="btn-group d-flex w-50" role="group">
             &nbsp; &nbsp; &nbsp;
-            <a href="insert_no_movil.php" class="btn btn-primary btn-sm">NUEVO NUMERO DE MOVIL</a>
+            <a href="insert_no_movil.php" class="btn btn-primary btn-sm">NUEVA UNIDAD</a>
+            &nbsp; &nbsp; &nbsp;
+            <a href="../uni_comp/list_uni_comp.php" class="btn btn-danger btn-sm">ELIMINAR UNIDAD</a>
             &nbsp; &nbsp; &nbsp;
             <button onclick="cerrarPagina()" class="btn btn-primary btn-sm">CERRAR PAGINA</button>
-            &nbsp; &nbsp; &nbsp;
-            <!-- <a href="ListaContacto.php" class="btn btn-primary btn-sm">LISTAR MOVILES</a>  -->
             &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
         </div>
 

@@ -4,7 +4,7 @@ if ($_SESSION['logueado']) {
 
     echo "BIENVENIDO ,"  . $_SESSION['uname'] . '<br>';
 
-    echo "Hora de conexión :" . $_SESSION['time'] . '<br>';
+    echo "Hora de conexión :" . $_SESSION['time'] . '<br><br>';
 
     include_once("../../funciones/funciones.php");
 
@@ -16,13 +16,11 @@ if ($_SESSION['logueado']) {
     <!DOCTYPE html>
     <html lang="es">
 
-
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>USUARIOS</title>
         <?php head(); ?>
-
     </head>
 
     <body>
@@ -30,6 +28,13 @@ if ($_SESSION['logueado']) {
         $sql = "SELECT * FROM users WHERE 1";
         $listar = $con->query($sql);
         ?>
+        <div class="text-center">
+            <a href="nuevo_usuario.php" class="btn btn-primary btn-sm">NUEVO USUARIO</a>
+        </div>
+
+        <br>
+
+        <br>
         <table class="table table-bordered table-sm table-hover">
             <thead class="thead-dark">
                 <tr>
@@ -70,18 +75,16 @@ if ($_SESSION['logueado']) {
                     <?php
                     }
                     ?>
-
-                    <p></p>
-                    <a href="nuevo_usuario.php">NUEVO USUARIO</a>
-                    <br>
-                    <a href="../menu.php">VOLVER</a>
-                    <br>
-                    <a href="../salir.php">SALIR</a>
                 </thead>
             </div>
         </table>
+        <div class="text-center">
+            <button onclick="window.close()" class="btn btn-danger btn-sm">Salir</button>
+        </div>
+
         <?php foot();
         ?>
+
     </body>
 
     </html>

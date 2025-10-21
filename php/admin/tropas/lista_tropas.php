@@ -20,18 +20,12 @@ $con->set_charset("utf8mb4");
             window.close();
         }
 
-        function deleteProduct(cod_titular) {
-
-            bootbox.confirm("Desea Eliminar?" + cod_titular, function(result) {
-                /*  si la funcion no tiene nombre es una funcion anonima function() o function = nombre()  */
-                if (result) {
-                    window.location = "borrar_tropa.php?q=" + cod_titular;
-                }
-                /*  La ?q es como si fuera el metodo $_GET */
-            });
+        function detailProduct(cod_titular) {
+            window.open("detalles.php?q=" + cod_titular, "_blank");
         }
 
-        /* ahora viene la funcion update*/
+
+
         function updateProduct(cod_titular) {
             window.location = "edita_tropa.php?q=" + cod_titular;
         }
@@ -56,17 +50,11 @@ $con->set_charset("utf8mb4");
                 margin: 10px;
             }
         </style>
-        <div class="btn-group d-flex w-50" role="group">
-            &nbsp; &nbsp; &nbsp;
-            <!-- <a href="insert_tropa.php" class="btn btn-primary btn-sm">NUEVA TROPA</a> -->
-            &nbsp; &nbsp; &nbsp;
-            <button onclick="cerrarPagina()" class="btn btn-primary btn-sm">CERRAR PAGINA</button>
-        </div>
     </div>
+
     <br>
     <table class="table table-bordered table-sm table-hover">
         <thead class="thead-dark">
-
             <tr>
                 <th>Tropa Numero</th>
                 <th>Movil</th>
@@ -105,16 +93,21 @@ $con->set_charset("utf8mb4");
 
 
                     echo '<td><a class="btn btn-primary btn-sm" href="#" onclick="updateProduct(' . $row['id'] . ')">Actualizar</a></td>';
-                    echo '<td><a class="btn btn-danger btn-sm" href="#" onclick="deleteProduct(' . $row['id'] . ')">Eliminar</a></td>';
+                    echo '<td><a class="btn btn-secondary btn-sm" href="#" onclick="detailProduct(' . $row['tropa'] . ')">Detalles</a></td>';
+
                     echo "</tr>";
                 }
                 ?>
-                </form>
-
         </tbody>
-        <?php foot(); ?>
+        </form>
+
 
     </table>
+    &nbsp; &nbsp; &nbsp;
+    <div class="text-center">
+        <button onclick="cerrarPagina()" class="btn btn-danger btn-sm">CERRAR PAGINA</button>
+    </div>
+    <?php foot(); ?>
     <br>
 </body>
 

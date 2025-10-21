@@ -5,9 +5,18 @@ $con->set_charset("utf8mb4");
 
 echo "<br>Movil :" . $movil = $_GET['movil'];
 echo "<br>";
-echo "<br>Semanas postergadas: " . $semanas = $_POST['postergar_semana'];
+echo "<br>Semanas postergadas: " . $semanas = $_GET['postergar_semana'];
+
+$sql_sem = "SELECT * FROM semanas WHERE movil = '$movil'";
+$res = $con->query($sql_sem);
+$se_adeu = $res->fetch_assoc();
+
+echo "<br>Paga x semana" . $paga_x_semana = $se_adeu['x_semana'];
+echo "<br>Total semanas: " . $semanas_adeudadas = $se_adeu['total'];
+echo "<br>Queda en total de semanas: " . $semanas;
 
 
+exit;
 
 $sql_comp = "SELECT * FROM completa WHERE movil='$movil'";
 $result = $con->query($sql_comp);
@@ -50,13 +59,11 @@ if ($resulta->num_rows > 0) {
             echo "<br>De semana: " . $total = $x_semana;
         }
 
-
         echo "<hr>";
     }
 } else {
     echo "No se encontraron resultados.";
 }
-
 
 $sql_sem = "SELECT * FROM voucher_validado WHERE movil='$movil'";
 
@@ -74,8 +81,6 @@ if ($resulta->num_rows > 0) {
     echo "No se encontraron resultados.";
 }
 
-
-
 //exit;
 $deuda_anterior = 0;
 $saldo_a_favor = 0;
@@ -85,19 +90,16 @@ $venta_3 = 0;
 $venta_4 = 0;
 $venta_5 = 0;
 
-
 echo "<br>Total: " . $total;
 
 //exit;
 $mensaje;
-
 
 obsDeuda($con, $movil, $postergar_semana, $mensaje);
 borraVoucher($con, $movil);
 actualizaSemPagadas($con, $movil, $total);
 actDeuAntSalaFavor($con, $movil, $deuda_anterior, $saldo_a_favor, $venta_1, $venta_2, $venta_3, $venta_4, $venta_5);
 guardaCajaFinal($con, $movil, $fecha, $new_dep_ft, $saldo_ft, $saldo_voucher, $dep_voucher, $usuario, $observaciones, $diez, $noventa, $paga_de_viajes);
-
 
 header("Location:inicio_cobros.php");
 exit;

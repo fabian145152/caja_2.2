@@ -45,7 +45,19 @@ echo "<pre>";
 print_r($GLOBALS['mes_siguiente']);
 echo "</pre>";
 
+##-------------------------------------
+// Borra archivos .txt
+if (file_exists($archivo_desencriptado)) {
+    unlink($archivo_desencriptado);
+}
+if (file_exists($archivo_encriptado)) {
+    unlink($archivo_encriptado);
+}
+
+##-------------------------------------
+
+
 echo "<script>
-    alert('Proceso finalizado. La ventana se cerrará.');
+    alert('Licencia actualizada correctamente. La ventana se cerrará.');
     window.close();
 </script>";
