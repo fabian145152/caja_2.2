@@ -237,7 +237,6 @@ $sub_saldo = $descuentos - $imp_viajes;
 $para_depositar = $sub_saldo - $suma_gastos_semanales;
 
 
-
 //OK --------- (errd 1) Error semanas = cero
 if ($tot_voucher == 0 && $new_dep_ft == 0 && $debe_semanas < 0 && $deuda_anterior == 0 && $saldo_a_favor == 0 && $ventas == 0 && $postergar_semana == 0) {
     echo "<b>(err 1) Error semanas = cero</b>";

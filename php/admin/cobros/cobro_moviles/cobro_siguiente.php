@@ -202,40 +202,12 @@ $sql_voucher = $con->query($sql_voucher);
     <div class="zoom-vertical">
         <ul style="border: 2px solid black; padding: 10px; border-radius: 10px; list-style-type: none;">
             <div id="contaaaenedor">
-                <?php $dia = date("w"); ?>
+
                 <h4>Estado de cuenta del <strong>MOVIL: </strong> <?php echo $movil . "." ?></h4>
                 <h5>Fecha:
                     <?php
 
-                    switch ($dia) {
-                        case 0:
-                            echo "Domingo";
-                            break;
-                        case 1:
-                            echo "Lunes";
-                            break;
-                        case 2:
-                            echo "Martes";
-                            break;
-                        case 3:
-                            echo "Miércoles";
-                            break;
-                        case 4:
-                            echo "Jueves";
-                            break;
-                        case 5:
-                            echo "Viernes";
-                            break;
-                        case 6:
-                            echo "Sábado";
-                            break;
-                        default:
-                            echo "Día desconocido";
-                    }
-                    ?>
-                    <?php
-                    echo $dia;
-                    date("d/m/Y");
+                    echo date("d/m/Y");
                     ?>
                     Se le esta cobrando la semana <?php echo $semana = date('W') - 1 ?>
                 </h5>
@@ -742,6 +714,13 @@ $sql_voucher = $con->query($sql_voucher);
                                 <?php
                                     include "calcula_viajes.php";
 
+                                    ##------------------------------------------------------------------------------------------
+                                ?>
+
+
+                                <?php
+                                    ##------------------------------------------------------------------------------------------
+
                                 ?>
                             </div>
                         <?php
@@ -751,7 +730,7 @@ $sql_voucher = $con->query($sql_voucher);
                         <li>
                             <br>
                             <label class="mi-label" style='text-align: center; font-size: 22px; font-weight: bold;'>Deposito FT:</label>
-                            <input type="text" id="dep_ft" name="dep_ft" style='text-align: center; font-size: 22px; font-weight: bold;' placeholder="Ingrese dinero" autofocus required>
+                            <input type="text" id="dep_ft" name="dep_ft" style='text-align: center; font-size: 22px; font-weight: bold;' placeholder="Ingrese dinero" autofocus>
 
 
                             <!---------------------------------------------------------------------------------- -->
@@ -815,48 +794,44 @@ $sql_voucher = $con->query($sql_voucher);
                             formaction="cobro_fin.php"
                             class="btn btn-danger"
                             onclick="return confirm('¿Estás seguro de que quieres cobrar?');">
-                            COBRAR Queda saldo a favor en contra o Al dia
+                            COBRAR
                         </button>
                         <br>
 
                         <br>
 
                     </div>
-
                 </div>
-                <!--
-                <input type="text" id="inputResultado" name="resultadoResta">
-                <input type="text" id="inputPostergar" name="postergar_semana">
-                <input type="text" id="inputMovil" name="movil">
-                -->
-                <script>
-                    document.getElementById('inputResultado').value = localStorage.getItem('resultadoResta') || '';
-                    document.getElementById('inputPostergar').value = localStorage.getItem('postergar_semana') || '';
-                    document.getElementById('inputMovil').value = localStorage.getItem('movil') || '';
-                </script>
+            </form>
+
+            <script>
+                document.getElementById('inputResultado').value = localStorage.getItem('resultadoResta') || '';
+                document.getElementById('inputPostergar').value = localStorage.getItem('postergar_semana') || '';
+                document.getElementById('inputMovil').value = localStorage.getItem('movil') || '';
+            </script>
 
 
-                <form action="depositar.php" method="get">
-                    <input type="hidden" id="movil" name="movil" value="<?= $movil ?>">
-                    <input type="hidden" id="postergar_semana_input" name="postergar_semana">
-                    <input type="hidden" id="resultadoResta_input" name="resultadoResta">
+            <form action="depositar.php" method="get">
+                <input type="hidden" id="movil" name="movil" value="<?= $movil ?>">
+                <input type="hidden" id="postergar_semana_input" name="postergar_semana">
+                <input type="hidden" id="resultadoResta_input" name="resultadoResta">
 
-                    <button type="submit">Depositar</button>
-                </form>
+                <button type="submit" class="btn btn-success">Depositar</button>
+            </form>
 
-                <script>
-                    const form = document.querySelector('form[action="depositar.php"]');
-                    form.addEventListener('submit', function(e) {
-                        document.getElementById('postergar_semana_input').value = document.getElementById('postergar_semana').value;
-                        document.getElementById('resultadoResta_input').value = document.getElementById('resultadoResta').value;
-                    });
-                </script>
+            <script>
+                const form = document.querySelector('form[action="depositar.php"]');
+                form.addEventListener('submit', function(e) {
+                    document.getElementById('postergar_semana_input').value = document.getElementById('postergar_semana').value;
+                    document.getElementById('resultadoResta_input').value = document.getElementById('resultadoResta').value;
+                });
+            </script>
 
 
 
 
-                <br><br><br>
-                <br><br><br>
+            <br><br><br>
+            <br><br><br>
 
     </div>
     <?php foot() ?>

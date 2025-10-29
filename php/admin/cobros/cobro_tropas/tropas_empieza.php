@@ -259,7 +259,7 @@ $total_trop = $para_tropa - $total_ajustado + $total_saldo_favor - $total_deuda_
                     </td>
                     <td>
                         <h4 id="total_final"><?= number_format($total_trop, 2, ',', '.') ?></h4>
-                        <input type="hidden" id="total_trop" name="total_trop" value="<?php echo $total_trop ?>">
+                        <input type="text" id="total_trop" name="total_trop" value="<?php echo $total_trop ?>">
                     </td>
                 </tr>
                 <tr>
@@ -272,34 +272,50 @@ $total_trop = $para_tropa - $total_ajustado + $total_saldo_favor - $total_deuda_
                     document.addEventListener("DOMContentLoaded", function() {
                         const inputs = document.querySelectorAll(".viaje-input");
                         const totalFinal = document.getElementById("total_final");
+                        const totalInput = document.getElementById("total_trop"); // 🔹 input oculto que se enviará al backend
                         let totalBase = <?= json_encode($total_trop) ?>;
 
                         function recalcular() {
                             let descuentoTotal = 0;
+
+                            // 🔹 Suma los importes según la cantidad de viajes validados
                             inputs.forEach(input => {
                                 let cantidad = parseInt(input.value) || 0;
                                 let importe = parseFloat(input.dataset.importe) || 0;
                                 descuentoTotal += cantidad * importe;
                             });
+
+                            // 🔹 Nuevo total de la tropa
                             let nuevoTotal = totalBase - descuentoTotal;
+
+                            // 🔹 Actualiza el texto visible del total
                             totalFinal.textContent = nuevoTotal.toLocaleString("es-AR", {
                                 minimumFractionDigits: 2,
                                 maximumFractionDigits: 2
                             });
+
+                            // 🔹 Actualiza el input oculto (valor que va a deposito_tropas.php)
+                            if (totalInput) {
+                                totalInput.value = nuevoTotal.toFixed(2);
+                            }
                         }
-                        // recalcular al salir del input (TAB o blur)
+
+                        // 🔹 Recalcula cada vez que el usuario sale de un input (blur) o cambia un valor
                         inputs.forEach(input => {
                             input.addEventListener("blur", recalcular);
+                            input.addEventListener("input", recalcular);
                         });
                     });
 
+                    // 🔹 Confirma antes de enviar el formulario
                     function confirmarAccion(event) {
-                        let ok = confirm("¿Tomo nota...?s");
+                        let ok = confirm("¿Confirmás el depósito y la liquidación de la tropa?");
                         if (!ok) {
                             event.preventDefault(); // ✋ Detiene el envío del form
                         }
                     }
                 </script>
+
             </table>
 
 
@@ -312,11 +328,11 @@ $total_trop = $para_tropa - $total_ajustado + $total_saldo_favor - $total_deuda_
     </div>
     <div class="recuadro-botones">
         <div class="botonera">
-            <a href="../cobro_moviles/inicio_cobros.php">VOLVER</a>
             <button type="submit" onclick="confirmarAccion(event)">DEPOSITAR</button>
         </div>
     </div>
     </form>
+    <a href="../cobro_moviles/inicio_cobros.php">VOLVER</a>
 </body>
 
 </html>

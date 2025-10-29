@@ -1,8 +1,7 @@
 <?php
 session_start();
 include_once "../../funciones/funciones.php";
-$con = conexion();
-$con->set_charset("utf8mb4");
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -50,6 +49,7 @@ $con->set_charset("utf8mb4");
             window.close();
         }
     </script>
+    <?php foot() ?>
 </body>
 
 

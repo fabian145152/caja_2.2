@@ -5,7 +5,7 @@ $con->set_charset("utf8mb4");
 
 echo "<br>Movil :" . $movil = $_GET['movil'];
 echo "<br>";
-echo "<br>Semanas postergadas: " . $semanas = $_GET['postergar_semana'];
+echo "<br>A depositar en FT al movil $movil: " . $depositar =  $_GET['resultadoResta'];
 
 $sql_sem = "SELECT * FROM semanas WHERE movil = '$movil'";
 $res = $con->query($sql_sem);
@@ -13,10 +13,18 @@ $se_adeu = $res->fetch_assoc();
 
 echo "<br>Paga x semana" . $paga_x_semana = $se_adeu['x_semana'];
 echo "<br>Total semanas: " . $semanas_adeudadas = $se_adeu['total'];
-echo "<br>Queda en total de semanas: " . $semanas;
 
+echo "<br><br><br>";
+echo "<br>Cantidad de semanas que debe: " . $debe_semanas = $semanas_adeudadas / $paga_x_semana - 1;
+echo "<br>Semanas postergadas: " . $semanas = $_GET['postergar_semana'];
+echo "<br>Cobra total de semanas: " . $queda_semanas = $debe_semanas - $semanas;
+echo "<br>Guarda en semanas: " . $guarda_semanas = $semanas;
+$guarda_semanas = $guarda_semanas + 1;
+echo "<br>Importe de semanas = " . $guarda_semanas * $paga_x_semana;
 
-exit;
+echo "<br>Total: " . $total = $guarda_semanas * $paga_x_semana;
+
+//exit;
 
 $sql_comp = "SELECT * FROM completa WHERE movil='$movil'";
 $result = $con->query($sql_comp);
@@ -32,33 +40,6 @@ if ($result->num_rows > 0) {
         echo "venta_3 " . $row["venta_3"] . "<br>";
         echo "venta_4 " . $row["venta_4"] . "<br>";
         echo "venta_5 " . $row["venta_5"] . "<br>";
-        echo "<hr>";
-    }
-} else {
-    echo "No se encontraron resultados.";
-}
-
-$sql_sem = "SELECT * FROM semanas WHERE movil='$movil'";
-$resulta = $con->query($sql_sem);
-
-if ($resulta->num_rows > 0) {
-    while ($row = $resulta->fetch_assoc()) {
-        echo "ID: " . $row["id"] . "<br>";
-        echo "Movil: " . $row["movil"] . "<br>";
-        echo "x_semana: " . $x_semana = $row["x_semana"] . "<br>";
-        echo "Total: " . $debe_semanas = $row["total"] . "<br>";
-        $debe_semanas = abs($debe_semanas);
-        $x_semana = abs($x_semana);
-        echo "Cant: " . $cant = $debe_semanas / $x_semana;
-        echo "<br>Semanas postergadas: " . $semanas;
-        echo "<br>total de semanas: " . $tot = $cant - $semanas;
-        echo "<br>Debe quedar: " . $to = $tot + $semanas;
-        if ($semanas > 0) {
-            echo "<br>Total: " . $total = $to * $x_semana;
-        } else {
-            echo "<br>De semana: " . $total = $x_semana;
-        }
-
         echo "<hr>";
     }
 } else {

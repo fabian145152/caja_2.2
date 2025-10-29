@@ -1,87 +1,107 @@
 <?php
-
-
-
 session_start();
 
 include_once "../../../../funciones/funciones.php";
-$_SESSION['uname'];
-$_SESSION['time'];
-
 include_once "semana.php";
+
+if (!isset($_SESSION['uname'])) {
+    // Si la sesión expiró, redirige al login
+    header("Location: ../../../../login.php");
+    exit;
+}
 
 $con = conexion();
 $con->set_charset("utf8mb4");
+
 $semana_actual = date("W");
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>COBROS</title>
-    <?php head() ?>
+    <title>Cobros</title>
+    <?php head(); ?>
     <style>
-        #Power-Contenedor {
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
             text-align: center;
+            padding-top: 100px;
+        }
+
+        form {
+            margin: 40px auto;
+            display: inline-block;
+            background: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            padding: 25px 40px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        input[type="text"] {
+            padding: 8px 10px;
+            font-size: 16px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            margin-left: 10px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 8px 16px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #Power-Contenedor {
+            margin-top: 60px;
+        }
+
+        #Power-Contenedor button {
+            background-color: #dc3545;
+        }
+
+        #Power-Contenedor button:hover {
+            background-color: #b02a37;
         }
     </style>
 </head>
 
 <body>
-    <!--
-    <h4 style="text-align: center; ">SEMANA ACTUAL: <?php echo $semana_actual . " " ?>SE ESTA COBRANDO LA <?php echo $semana_actual - 1 ?></h4>
-    -->
-    <br><br><br><br><br>
-    <form style=" text-align:center;" method="POST" action="cobro_empieza.php">
-        COBRAR A MOVIL:
+    <form method="POST" action="cobro_empieza.php">
+        <label for="movil">Cobrar a móvil:</label>
         <input type="text" id="movil" name="movil" autofocus required>
         <button type="submit">Continuar</button>
     </form>
-    <br><br><br>
 
-    <form style=" text-align:center;" method="POST" action="../cobro_tropas/tropas_empieza.php">
-        COBRAR A TROPA:
-        <input type="text" id="tropa" name="tropa" autofocus required>
+    <form method="POST" action="../cobro_tropas/tropas_empieza.php">
+        <label for="tropa">Cobrar a tropa:</label>
+        <input type="text" id="tropa" name="tropa" required>
         <button type="submit">Continuar</button>
     </form>
 
-    <br><br><br>
-
     <div id="Power-Contenedor">
-        <button onclick="cerrarPagina()" class="btn btn-primary btn-sm">CERRAR PAGINA</button>
+        <button onclick="cerrarPagina()">Cerrar página</button>
     </div>
 
-
-    <br><br><br><br>
-    <!--
-    <form method="post" style=" text-align:center;">BORRAR TABLA
-        <input type="submit" name="vaciar_tabla" value="vaciar_tabla">
-    </form>
-    <?php
-    /*
-    if ($con->connect_error) {
-        die("Conexión fallida: " . $con->connect_error);
-    }
-
-    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['vaciar_tabla'])) {
-        // SQL para vaciar la tabla
-        $sql = "TRUNCATE TABLE caja_movil";
-
-        if ($con->query($sql) === TRUE) {
-            echo "Tabla Vaciada con éxito";
-        } else {
-            echo "Error vaciando la tabla: " . $con->error;
-        }
-    }
-        */
-    ?>
-    -->
     <?php foot(); ?>
+
     <script>
         function cerrarPagina() {
-            window.close();
+            if (confirm("¿Seguro que deseas cerrar la página?")) {
+                window.close();
+            }
         }
     </script>
 </body>

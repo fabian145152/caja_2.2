@@ -25,7 +25,8 @@ $row_semana['movil'];
 
 <body>
     <div class="container">
-        <h3 class="text-center">ACTUALIZAR NUMEROS DE MOVIL</h3>
+        <h3 class="text-center">ACTUALIZAR NUMEROS TROPAS</h3>
+        <h5 class="text-center">Si el movil deja de ser tropa ponerlo como tropa 50</h5>
         <div class="row">
 
             <div class="col-md-12">

@@ -589,3 +589,32 @@ function obsDeuda($con, $movil, $postergar_pago, $mensaje)
         }
     }
 }
+
+// 🧩 Función auxiliar para limpiar datos de un móvil
+// En el cobro a trpas
+function limpiarMovil($con, $movil)
+{
+    // 1️⃣ Borrar vouchers validados
+    $sql_borra_vou = $con->prepare("DELETE FROM voucher_validado WHERE movil = ?");
+    $sql_borra_vou->bind_param("i", $movil);
+    $sql_borra_vou->execute();
+    $sql_borra_vou->close();
+
+    // 2️⃣ Actualizar semanas: total = x_semana
+    $stmt_sem = $con->prepare("SELECT x_semana FROM semanas WHERE movil = ?");
+    $stmt_sem->bind_param("i", $movil);
+    $stmt_sem->execute();
+    $res_sem = $stmt_sem->get_result();
+
+    if ($res_sem && $res_sem->num_rows > 0) {
+        $row = $res_sem->fetch_assoc();
+        $x_semana = intval($row['x_semana']);
+
+        $upd = $con->prepare("UPDATE semanas SET total = ? WHERE movil = ?");
+        $upd->bind_param("ii", $x_semana, $movil);
+        $upd->execute();
+        $upd->close();
+    }
+
+    $stmt_sem->close();
+}

@@ -41,7 +41,7 @@ if ($_SESSION['logueado']) {
     <hea>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>MENU PINCIPAL</title>
+        <title>MENU PRINCIPAL</title>
         <?php head(); ?>
         <script>
             function confirmarAccion() {
@@ -113,6 +113,9 @@ if ($_SESSION['logueado']) {
                         <li><a href="ayuda/ayuda_voucher.php" target="_blank" class="btn btn-info btn-block btn-sm">AYUDA DE CARGA DE VOUCHER</a></li>
                         <br>
                         <li> <a href="admin/voucher/inicio_voucher.php" target="_blank" class="btn btn-primary btn-block btn-sm">VOUCHER DE CAJA</a></li>
+                        <br>
+                        <li> <a href="admin/voucher_manual/inicio_v_manual.php" target="_blank" class="btn btn-primary btn-block btn-sm">CARGAR VOUCHER MANUALMENTE</a></li>
+                        <br>
                         <h3>VENTAS</h3>
                         <li><a href="admin/venta/venta_prod.php" class=" btn btn-primary btn-block btn-sm" target="__blank">STOCK DE PRODUCTOS</a></li>
                         <br>
@@ -131,6 +134,8 @@ if ($_SESSION['logueado']) {
                     <ul class="list-group">
                         <h3>MENU CAJA </h3>
                         <li><a href="ayuda/help.php" target="_blank" class="btn btn-info btn-block btn-sm">AYUDA DE COBROS</a></li>
+                        <br>
+                        <li><a href="admin/bonifica_semanas/inicio_bonifica.php" target="_blank" class=" btn btn-primary btn-block btn-sm">BONIFICA SEMANAS</a></li>
                         <br>
                         <li> <a href="admin/bonifica_deuda/inicio_deuda.php" class="btn btn-danger btn-block btn-sm" target="__blank">BONIFICA DEUDA</a></li>
                         <br>

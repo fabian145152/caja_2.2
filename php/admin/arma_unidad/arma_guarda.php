@@ -55,11 +55,11 @@ session_start();
 
                             <div class="form-group">
                                 <label class="control-label">NOMBRE</label>
-                                <input type="text" class="form-control input-sm" id="nombre" name="nombre" value="<?php echo  $row['nombre_titu']; ?>">
+                                <input type="text" class="form-control input-sm" id="nombre" name="nombre" value="<?php echo  $row['nombre_titu']; ?>" readonly>
                             </div>
                             <div class="form-group">
                                 <label class="control-label">APELLIDO</label>
-                                <input type="text" class="form-control input-sm" id="apellido" name="apellido" value="<?php echo  $row['apellido_titu']; ?>">
+                                <input type="text" class="form-control input-sm" id="apellido" name="apellido" value="<?php echo  $row['apellido_titu']; ?>" readonly>
                             </div>
 
                             <div class="form-group">
