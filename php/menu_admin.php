@@ -117,7 +117,7 @@ if ($_SESSION['logueado']) {
                         <br>
                         <li><a href="admin/cobros/cobro_moviles/inicio_cobros.php" target="_blank" class=" btn btn-primary btn-block btn-sm">COBRAR MOVILES / TROPAS</a></li>
                         <br>
-                        <li><a href="admin/bonifica_semanas/inicio_bonifica.php" target="_blank" class=" btn btn-primary btn-block btn-sm">BONIFICA SEMANAS</a></li>
+                        <li><a href="admin/bonifica_semanas/inicio_bonifica.php" target="_blank" class=" btn btn-primary btn-block btn-sm">EDITAR CANT SEMANAS</a></li>
                         <br>
                         <li><a href="admin/bonifica_deuda/inicio_deuda.php" class="btn btn-danger btn-block btn-sm" target="__blank">BONIFICA DEUDA</a></li>
                         <br>

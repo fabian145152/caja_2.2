@@ -20,7 +20,7 @@ $row_semana = $result_semana->fetch_assoc();
 echo $movil_semana = $row_semana['movil'];
 echo "<br>";
 
-$sql_caja = "SELECT * FROM caja_movil WHERE movil=" . $movil;
+$sql_caja = "SELECT * FROM caja_final WHERE movil=" . $movil;
 $result_caja = $con->query($sql_caja);
 $row_caja = $result_caja->fetch_assoc();
 echo $movil_caja = $row_caja['movil'];

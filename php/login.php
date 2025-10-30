@@ -33,6 +33,7 @@ if ($permiso === 'super') {
         $_SESSION['time'] = date('H i s');
         header("location:menu.php");
     }
+    
 } else if ($permiso === 'cobro') {
     echo "Solo cobra a las unidades...";
 
@@ -45,8 +46,9 @@ if ($permiso === 'super') {
         $_SESSION['uname'] = $usr;
         $_SESSION['logueado'] = true;
         $_SESSION['time'] = date('H i s');
-        header("location:menu_cobra.php");
+        header("location:menu_cobro.php");
     }
+
 } else if ($permiso === 'edita') {
     echo "Solo edita unidades";
 

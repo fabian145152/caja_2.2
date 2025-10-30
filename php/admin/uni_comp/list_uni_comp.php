@@ -85,6 +85,7 @@ $sql_activo = "SELECT * FROM semanas WHERE 1";
         <?php echo $cant_cargas . " UNIDADES CARGADAS." ?>
         <button onclick="cerrarPagina()" class="btn btn-primary btn-sm">CERRAR PAGINA</button>
         &nbsp;&nbsp;<a href="../../ayuda/ayuda.html" target=" _blank">AYUDA</a>
+        <!--
         <div>
             <a href="estado/abogado.php" style="color: red" target="_blank">ABOGADO</a>
             <a href="estado/aldia.php" style="color: cyan" target="_blank">AL DIA</a>
@@ -94,7 +95,7 @@ $sql_activo = "SELECT * FROM semanas WHERE 1";
             <a href="#link6" style="color: gray;" target="_blank">PARA ABOGADO</a>
             <a href="#link7" style="color: greenyellow;" target="_blank">VER</a>
         </div>
-
+    -->
     </h2>
 
     <table class=" table table-bordered table-sm table-hover">

@@ -23,7 +23,7 @@ if (file_exists($licencia)) {
         echo "<br>Licencia mensual vencida...";
         exit;
     }
-}
+} 
 
 // ---------------------------------------------
 // 2️⃣ Prevención de doble ejecución

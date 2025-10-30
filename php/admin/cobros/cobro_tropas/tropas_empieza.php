@@ -259,13 +259,13 @@ $total_trop = $para_tropa - $total_ajustado + $total_saldo_favor - $total_deuda_
                     </td>
                     <td>
                         <h4 id="total_final"><?= number_format($total_trop, 2, ',', '.') ?></h4>
-                        <input type="text" id="total_trop" name="total_trop" value="<?php echo $total_trop ?>">
+                        <input type="hidden" id="total_trop" name="total_trop" value="<?php echo $total_trop ?>">
                     </td>
                 </tr>
                 <tr>
                     <td colspan="3">
                         <h3>Deposito FT</h3>
-                        <input type="text" id="dep_ft" name="dep_ft">
+                        <input type="text" id="dep_ft" name="dep_ft" style="text-align: center;" required>
                     </td>
                 </tr>
                 <script>
