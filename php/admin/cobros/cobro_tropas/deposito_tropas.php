@@ -32,12 +32,19 @@ if (DEBUG) {
 // 🟢 Caso 1: Pago justo
 if ($total_tropa == $dep_ft) {
     echo "<br>Paga justo...";
+
     if (isset($_POST['moviles']) && is_array($_POST['moviles'])) {
         foreach ($_POST['moviles'] as $movil) {
             $movil = intval($movil);
+            echo "<br>Movil " . $movil;
+            echo "<br>Tropa " . $tropa;
+
+
             limpiarMovil($con, $movil);
         }
     }
+
+
 
     header("Location: ../cobro_moviles/inicio_cobros.php");
     exit;
@@ -95,7 +102,6 @@ elseif ($total_tropa > $dep_ft) {
     if ($result && $result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
             $movil = intval($row['movil']);
-
             if ($primer_movil === null) {
                 $primer_movil = $movil;
 
@@ -108,7 +114,6 @@ elseif ($total_tropa > $dep_ft) {
             limpiarMovil($con, $movil);
         }
     }
-
     header("Location: ../cobro_moviles/inicio_cobros.php");
     exit;
 }

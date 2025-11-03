@@ -37,7 +37,7 @@ if ($_SESSION['logueado']) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>MENU PRINCIPAL</title>
         <link rel="icon" href="../imagenes/favicon.ico" type="image/x-icon">
-        
+
         <?php head(); ?>
     </hea>
 
@@ -62,7 +62,7 @@ if ($_SESSION['logueado']) {
                     <ul class="list-group">
                         <h3>UNIDADES</h3>
 
-                        <li><a href="#crear_unidad" target="_blank" class="btn btn-info btn-block btn-sm">COMO ARMAR UNA UNIDAD</a></li>
+                        <li><a href="ayuda/help_usuarios.php#crear_unidad" target="_blank" class="btn btn-info btn-block btn-sm">COMO ARMAR UNA UNIDAD</a></li>
                         <br>
                         <li><a href="admin/crear_no_de_movil/list_no_movil.php" target="_blank" class="btn btn-primary btn-block btn-sm">CREAR NUMERO DE MOVIL</a></li>
                         <br>
@@ -80,14 +80,18 @@ if ($_SESSION['logueado']) {
                     <ul class="list-group">
 
                         <h3>VOUCHER</h3>
-                        <li><a href="ayuda/ayuda_voucher.php" target="_blank" class="btn btn-info btn-block btn-sm">AYUDA DE CARGA DE VOUCHER</a></li>
+                        <li><a href="ayuda/help_usuarios.php#voucher" target="_blank" class="btn btn-info btn-block btn-sm">AYUDA DE CARGA DE VOUCHER</a></li>
                         <br>
                         <li> <a href="admin/voucher/inicio_voucher.php" target="_blank" class="btn btn-primary btn-block btn-sm">VOUCHER DE CAJA</a></li>
+                        <br>
+                        <li><a href="ayuda/help_usuarios.php#voucher_manual" target="_blank" class="btn btn-info btn-block btn-sm">AYUDA DE CARGA DE VOUCHER MANUAL</a></li>
                         <br>
                         <li> <a href="admin/voucher_manual/inicio_v_manual.php" target="_blank" class="btn btn-primary btn-block btn-sm">CARGAR VOUCHER MANUALMENTE</a></li>
                         <br>
                         <li><a href="http://taxicorp.rtportenio.com/Web/Account/Login" target="_blank" class="btn btn-secondary btn-block btn-sm">APP SATELITAL</a></li>
                         <h3>VENTAS</h3>
+                        <li><a href="ayuda/help_usuarios.php#productos" target="_blank" class="btn btn-info btn-block btn-sm">AYUDA DE VENTA DE PRODUCTOS</a></li>
+                        <br>
                         <li><a href="admin/venta/venta_prod.php" class=" btn btn-primary btn-block btn-sm" target="__blank">STOCK DE PRODUCTOS</a></li>
                         <br>
                         <li><a href="admin/ventas/inicio_ventas.php" class=" btn btn-primary btn-block btn-sm" target="__blank">VENTA</a></li>
@@ -123,13 +127,8 @@ if ($_SESSION['logueado']) {
                         <br>
                         <li><a href="admin/genera_deuda/genera_deuda.php" class="btn btn-success btn-block btn-sm" target="__blank">GENERA DEUDA</a></li>
                         <br>
-                        <li><a href="admin/deposito_a_cuenta/genera_dep.php" class="btn btn-secondary btn-block btn-sm" target="__blank">DEPOSITO A CUENTA DE LOS MOVILES</a></li>
-                        <br>
 
-                        <li><a href="#" class="btn btn-secondary btn-block btn-sm" target="__blank">EDITA SALDO A FAVOR
-                                <p>agregar editor</p>
-                            </a>
-                        </li>
+                        <li><a href="admin/edita_saldo_a_favor/inicio.php" class="btn btn-secondary btn-block btn-sm" target="__blank">EDITA SALDO A FAVOR</a></li>
                         <br>
                         <li><a href="admin/historial/inicio_resumen.php" target="_blank" class=" btn btn-primary btn-block btn-sm">HISTORIAL DE PAGOS DEL MOVIL</a></li>
                         <br>

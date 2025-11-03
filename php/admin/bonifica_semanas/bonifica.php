@@ -18,11 +18,9 @@ $movil_param = trim($_GET['movil']);
 // --- Procesar actualización ---
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'update_cant') {
 
-    $movil_post = trim(isset($_POST['movil']) ? $_POST['movil'] : '');
-    $cant_semanas = trim(isset($_POST['cant_semanas']) ? $_POST['cant_semanas'] : '');
-    $x_semana = str_replace(',', '.', trim(isset($_POST['x_semana']) ? $_POST['x_semana'] : ''));
-
-
+    $movil_post = trim($_POST['movil'] ?? '');
+    $cant_semanas = trim($_POST['cant_semanas'] ?? '');
+    $x_semana = str_replace(',', '.', trim($_POST['x_semana'] ?? ''));
 
     if ($movil_post === '') {
         $mensaje = "Número de móvil inválido.";
@@ -35,7 +33,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
 
         // 👇 Guardar una semana más que la indicada
         $cant_guardar = $cant_semanas + 1;
-
         $x_semana = floatval($x_semana);
         $total = $cant_guardar * $x_semana;
 
@@ -44,9 +41,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
             $stmt_up->bind_param('ds', $total, $movil_post);
             if ($stmt_up->execute()) {
                 if ($stmt_up->affected_rows > 0) {
-                    //$mensaje = "Se registraron $cant_guardar semanas para el móvil $movil_post (mostrando $cant_semanas).";
-                    $mensaje = "Se registraron $cant_semanas semanas para el móvil $movil_post .";
-                    $mostrar_alerta = true; // ✅ Activar alerta de éxito
+                    $mensaje = "Se registraron $cant_semanas semanas para el móvil $movil_post.";
+                    $mostrar_alerta = true;
                 } else {
                     $mensaje = "No se realizaron cambios.";
                 }
@@ -90,6 +86,7 @@ if (!$result) {
     die("Error en get_result(): " . $con->error);
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -97,72 +94,194 @@ if (!$result) {
     <meta charset="utf-8" />
     <title>Semanas adeudadas</title>
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <link rel="stylesheet" href="main.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+            padding: 30px 40px;
+            width: 90%;
+            max-width: 900px;
+        }
+
+        h2 {
+            margin-top: 0;
+            color: #333;
+        }
+
+        a {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+            align-self: flex-start;
+            margin-bottom: 20px;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th,
+        td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f0f0f0;
+        }
+
+        input[type="number"] {
+            width: 80px;
+            padding: 5px;
+            text-align: center;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        .btn-update {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .btn-update:hover {
+            background-color: #0069d9;
+        }
+
+        .msg {
+            margin: 15px 0;
+            padding: 10px;
+            border-radius: 8px;
+            width: 100%;
+        }
+
+        .msg.ok {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .msg.err {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+
+            table,
+            thead,
+            tbody,
+            th,
+            td,
+            tr {
+                display: block;
+            }
+
+            th {
+                display: none;
+            }
+
+            td {
+                text-align: right;
+                padding-left: 50%;
+                position: relative;
+            }
+
+            td::before {
+                content: attr(data-label);
+                position: absolute;
+                left: 0;
+                width: 50%;
+                padding-left: 15px;
+                font-weight: bold;
+                text-align: left;
+            }
+        }
+    </style>
 </head>
 
 <body>
-    <a href="inicio_bonifica.php">← VOLVER</a>
-    <h2>Semanas adeudadas del móvil: <?php echo htmlspecialchars($movil_param); ?></h2>
+    <div class="container">
+        <a href="inicio_bonifica.php">← VOLVER</a>
 
-    <?php if ($mensaje !== ''): ?>
-        <?php $isError = preg_match('/error|inválido/i', $mensaje); ?>
-        <div class="msg <?php echo $isError ? 'err' : 'ok'; ?>">
-            <?php echo htmlspecialchars($mensaje); ?>
-        </div>
-    <?php endif; ?>
+        <h2>Semanas adeudadas del móvil: <?php echo htmlspecialchars($movil_param); ?></h2>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Móvil</th>
-                <th>Nombre</th>
-                <th>Apellido</th>
-                <th>X Semana</th>
-                <th>Cantidad de semanas</th>
-                <th>Acción</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php while ($row = $result->fetch_assoc()): ?>
-                <?php
-                $movil_row = $row['movil'];
-                $nombre = $row['nombre_titu'];
-                $apellido = $row['apellido_titu'];
-                $x_semana = $row['x_semana'];
-                $cant_semanas = isset($row['cant_semanas']) ? $row['cant_semanas'] : '';
-                ?>
+        <?php if ($mensaje !== ''): ?>
+            <?php $isError = preg_match('/error|inválido/i', $mensaje); ?>
+            <div class="msg <?php echo $isError ? 'err' : 'ok'; ?>">
+                <?php echo htmlspecialchars($mensaje); ?>
+            </div>
+        <?php endif; ?>
+
+        <table>
+            <thead>
                 <tr>
-                    <form method="post" action="">
-                        <input type="hidden" name="action" value="update_cant">
-                        <input type="hidden" name="movil" value="<?php echo htmlspecialchars($movil_row); ?>">
-                        <input type="hidden" name="x_semana" value="<?php echo htmlspecialchars($x_semana); ?>">
-
-                        <td><?php echo htmlspecialchars($movil_row); ?></td>
-                        <td><?php echo htmlspecialchars($nombre); ?></td>
-                        <td><?php echo htmlspecialchars($apellido); ?></td>
-                        <td><?php echo htmlspecialchars($x_semana); ?></td>
-                        <td>
-                            <input type="number" name="cant_semanas" min="0" step="1"
-                                value="<?php echo htmlspecialchars($cant_semanas); ?>"
-                                placeholder="0">
-                        </td>
-                        <td><button type="submit" class="btn-update">Guardar</button></td>
-                    </form>
+                    <th>Móvil</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>X Semana</th>
+                    <th>Cantidad de semanas</th>
+                    <th>Acción</th>
                 </tr>
-            <?php endwhile; ?>
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                <?php while ($row = $result->fetch_assoc()): ?>
+                    <tr>
+                        <form method="post" action="">
+                            <input type="hidden" name="action" value="update_cant">
+                            <input type="hidden" name="movil" value="<?php echo htmlspecialchars($row['movil']); ?>">
+                            <input type="hidden" name="x_semana" value="<?php echo htmlspecialchars($row['x_semana']); ?>">
 
-    <?php foot(); ?>
+                            <td data-label="Móvil"><?php echo htmlspecialchars($row['movil']); ?></td>
+                            <td data-label="Nombre"><?php echo htmlspecialchars($row['nombre_titu']); ?></td>
+                            <td data-label="Apellido"><?php echo htmlspecialchars($row['apellido_titu']); ?></td>
+                            <td data-label="X Semana"><?php echo htmlspecialchars($row['x_semana']); ?></td>
+                            <td data-label="Cantidad">
+                                <input type="number" name="cant_semanas" min="0" step="1"
+                                    value="<?php echo htmlspecialchars($row['cant_semanas'] ?? ''); ?>">
+                            </td>
+                            <td data-label="Acción"><button type="submit" class="btn-update">Guardar</button></td>
+                        </form>
+                    </tr>
+                <?php endwhile; ?>
+            </tbody>
+        </table>
+    </div>
 
     <?php if ($mostrar_alerta): ?>
         <script>
             alert("✅ Semanas actualizadas correctamente");
         </script>
     <?php endif; ?>
+
+    <?php foot(); ?>
 </body>
 
 </html>
+
 <?php
 $result->free();
 $con->close();

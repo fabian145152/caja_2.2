@@ -99,9 +99,9 @@ $semana_actual = date("W");
 
     <script>
         function cerrarPagina() {
-            if (confirm("¿Seguro que deseas cerrar la página?")) {
-                window.close();
-            }
+
+            window.close();
+
         }
     </script>
 </body>

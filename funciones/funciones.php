@@ -600,9 +600,12 @@ function limpiarMovil($con, $movil)
     $sql_borra_vou->execute();
     $sql_borra_vou->close();
 
+
+    //exit;
+
     // 2️⃣ Actualizar semanas: total = x_semana
     $stmt_sem = $con->prepare("SELECT x_semana FROM semanas WHERE movil = ?");
-    $stmt_sem->bind_param("i", $movil);
+    $stmt_sem->bind_param("s", $movil);
     $stmt_sem->execute();
     $res_sem = $stmt_sem->get_result();
 

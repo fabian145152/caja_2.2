@@ -70,14 +70,14 @@ include_once "../../funciones/funciones.php";
             <li><a href="#viajes">13_ Importe de los viajes.</a></li>
             <li><a href="#semanas">14_ Abonos semanales.</a></li>
             <li><a href="#cobrar_moviles_tropas"></a>15_ Cobrar a moviles y tropas.</li>
-            <li><a href="#Bonifica_semanas"></a>16_ Bonifica semanas</li>
-            <li><a href="#"></a>17_</li>
-            <li><a href="#"></a>18_</li>
-            <li><a href="#"></a>19_</li>
-            <li><a href="#"></a>20_</li>
-            <li><a href="#"></a>21_</li>
-            <li><a href="#"></a>22_</li>
-            <li><a href="#"></a>23_</li>
+            <li><a href="#bonifica_semanas"></a>16_ Editar cantidad de semanas.</li>
+            <li><a href="#bonifica_deuda"></a>17_ Bonifica deuda.</li>
+            <li><a href="#genera_deuda"></a>18_ Genera deuda.</li>
+            <li><a href="#dep_a_cuenta"></a>19_ Deposito a cuenta de los moviles.</li>
+            <li><a href="#edit_sal_a_fav"></a>20_ Editar saldo a favor</li>
+            <li><a href="#historial_pagos_mov"></a>21_ Historial de pagos del movil.</li>
+            <li><a href="#resumen_caja"></a>22_ Resumen de caja</li>
+            <li><a href="#estraxiones"></a>23_ Extracciones de caja.</li>
 
         </ul>
     </div>
@@ -239,7 +239,7 @@ include_once "../../funciones/funciones.php";
         </section>
 
         <section id="Viajes">
-            <h1>12_ Imposte de los viajes.</h1>
+            <h1>13_ Importe de los viajes.</h1>
             <ul>
                 <li>Cambio del valor de viaje.</li>
                 <li>Modificarlo cada vez que tengan un aumento de las tarifas.</li>
@@ -250,7 +250,7 @@ include_once "../../funciones/funciones.php";
             <a href="help_usuarios.php">INDICE</a>
         </section>
         <section id="semanas">
-            <h1>Importes semanales</h1>
+            <h1>14_ Abonos semanales</h1>
             <ul>
                 <li>Cambio del Abono semanal</li>
                 <li>También modificarlo cada vez que tenga un aumento de tarifa.</li>
@@ -261,6 +261,13 @@ include_once "../../funciones/funciones.php";
             </ul>
             <a href="help_usuarios.php">INDICE</a>
         </section>
+        <section id="cobrar_moviles_tropas">
+            <h1>15_ Cobrar a moviles y tropas.</h1>
+
+        </section>
+
+
+
 
         <button onclick="cerrarPagina()">Volver</button>
         <script>
