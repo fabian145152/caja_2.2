@@ -1,0 +1,34 @@
+  .form-container {
+      max-width: 500px;
+      margin: auto;
+      padding: 20px;
+  }
+
+  .form-group {
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+  }
+
+  .form-group label {
+      width: 180px;
+      font-weight: bold;
+  }
+
+  .form-group input {
+      flex: 1;
+      padding: 5px;
+  }
+
+  .put {
+      width: 50px;
+      /* Ajusta el ancho del campo */
+      text-align: center;
+      /* Centra el texto dentro */
+      /* padding: 1px;
+      /* Agrega un poco de espacio interior */
+      border: 2px solid #000;
+      /* Borde opcional */
+      border-radius: 5px;
+      /* Bordes redondeados opcionales */
+  }

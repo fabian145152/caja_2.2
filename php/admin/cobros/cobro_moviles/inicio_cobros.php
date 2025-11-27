@@ -80,6 +80,7 @@ $semana_actual = date("W");
 
 <body>
     <form method="POST" action="cobro_empieza.php">
+
         <label for="movil">Cobrar a móvil:</label>
         <input type="text" id="movil" name="movil" autofocus required>
         <button type="submit">Continuar</button>

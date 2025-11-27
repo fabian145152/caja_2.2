@@ -3,20 +3,23 @@
 
 <?php
 /*
-VIENE DE guarda_cobros_con_voucher.php
+VIENE DE cobro_fin.php
 */
-require "../../../funciones/fpdf/fpdf.php";
+
+include_once "../../../../funciones/funciones.php";
+
 $width = 200;
 $height = 150;
 
 $user = $_SESSION['uname'];
 
+/*
 
 $sql_rec = "SELECT * FROM recibo ORDER BY id DESC LIMIT 1";
 $sql_reci = $con->query($sql_rec);
 $rec_numero = $sql_reci->fetch_assoc();
 $recibo_numero = $rec_numero['numero'];
-
+*/
 //echo "Recibo numero: " . $recibo_numero;
 
 //exit;
@@ -24,11 +27,11 @@ $recibo_numero = $rec_numero['numero'];
 echo $dia = date("d-m-Y");
 echo $voucher = "$" . $tot_voucher . "-";
 echo $ventas = "$" . $total_ventas . "-";
-echo $comision = "$" . $comisiones . "-";
-echo $sem = "$" . $semanas . "-";
-echo $deuda = "$" . $deuda_ant . "-";
+//echo $comision = "$" . $comisiones . "-";
+echo $sem = "$" . $debe_semanas . "-";
+echo $deuda = "$" . $deuda_anterior . "-";
 echo $paga_viaje = "$" . $paga_x_viaje . "-";
-echo $tot_via = $can_viajes * $paga_x_viaje;
+echo $total_de_viajes = $can_viajes * $paga_x_viaje;
 echo $total_de_viajes = "$" . $can_viajes * $paga_x_viaje . "-";
 echo $comi = "$" . $tot_voucher * .1 . "-";
 echo $noventa = $tot_voucher * .9;

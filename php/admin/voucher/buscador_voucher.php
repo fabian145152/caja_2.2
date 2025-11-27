@@ -181,7 +181,7 @@ $con->set_charset("utf8mb4");
 
 
 
-
+    <?php foot() ?>
 </body>
 
 </html>

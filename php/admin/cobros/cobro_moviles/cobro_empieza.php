@@ -5,57 +5,56 @@ include_once "../../../../funciones/funciones.php";
 $con = conexion();
 $con->set_charset("utf8mb4");
 
-// Validar que se haya recibido el parámetro
+// --- Validar parámetro recibido ---
 if (empty($_POST['movil'])) {
     die("No se recibió el número de móvil.");
 }
 
-$mov = intval($_POST['movil']); // seguridad: convertir a número entero
-$movil = "A" . $mov;
+$mov = intval($_POST['movil']);  // Sanitizado número
 
-// --- Verificar si el móvil existe ---
-$sql_existe = "SELECT 1 FROM completa WHERE movil = ?";
-$stmt = $con->prepare($sql_existe);
+// --- Verificar si el móvil existe en COMPLETA ---
+$sql = "SELECT venta_1, deuda_anterior FROM completa WHERE movil = ?";
+$stmt = $con->prepare($sql);
 $stmt->bind_param("i", $mov);
 $stmt->execute();
-$resu = $stmt->get_result();
+$res = $stmt->get_result();
 
-if ($resu->num_rows === 0) {
-    echo "El registro no existe.";
-    header("Location: inicio_cobros.php");
+if ($res->num_rows === 0) {
+    // Redirección segura sin echo previo
+    header("Location: inicio_cobros.php?error=no_existe");
     exit;
 }
 
-// --- Verificar si tiene vouchers ---
+$linea = $res->fetch_assoc();
+$venta_1     = intval($linea['venta_1']);
+$deuda_ant   = intval($linea['deuda_anterior']);
+
+
+// --- Verificar cantidad de vouchers ---
 $sql = "SELECT COUNT(*) AS total FROM voucher_validado WHERE movil = ?";
 $stmt = $con->prepare($sql);
 $stmt->bind_param("i", $mov);
 $stmt->execute();
-$result = $stmt->get_result();
-$hay_voucher = $result->fetch_assoc();
-$total_vouchers = $hay_voucher ? intval($hay_voucher['total']) : 0;
+$res = $stmt->get_result();
+$total_vouchers = intval($res->fetch_assoc()['total']);
 
-// --- Traer datos de ventas y deuda ---
-$sql_tiene_ventas = "SELECT venta_1, deuda_anterior FROM completa WHERE movil = ?";
-$stmt = $con->prepare($sql_tiene_ventas);
+
+// --- Verificar deuda de semanas ---
+$sql = "SELECT total FROM semanas WHERE movil = ?";
+$stmt = $con->prepare($sql);
 $stmt->bind_param("i", $mov);
 $stmt->execute();
-$resu = $stmt->get_result();
-$linea = $resu->fetch_assoc();
+$res = $stmt->get_result();
+$debe_semanas = ($res->num_rows > 0) ? intval($res->fetch_assoc()['total']) : 0;
 
-$hay_ventas = $linea ? $linea['venta_1'] : 0;
-$deuda_ant  = $linea ? $linea['deuda_anterior'] : 0;
 
-// --- Traer semanas ---
-$sql_sem = "SELECT total FROM semanas WHERE movil = ?";
-$stmt = $con->prepare($sql_sem);
-$stmt->bind_param("i", $mov);
-$stmt->execute();
-$sql_res = $stmt->get_result();
-$tiene_semanas = $sql_res->fetch_assoc();
+// --- Guardar en sesión ---
+$_SESSION['movil']          = $mov;
+$_SESSION['venta_1']        = $venta_1;
+$_SESSION['deuda_anterior'] = $deuda_ant;
+$_SESSION['vouchers']       = $total_vouchers;
+$_SESSION['debe_semanas']   = $debe_semanas;
 
-$debe_semanas = $tiene_semanas ? $tiene_semanas['total'] : 0;
-
-// --- Guardar en sesión e incluir siguiente paso ---
-$_SESSION['variable'] = $movil;
+// Pasar al siguiente archivo
 include_once "cobro_siguiente.php";
+exit;
