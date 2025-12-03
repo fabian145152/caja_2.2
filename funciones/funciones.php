@@ -30,28 +30,23 @@ function foot()
 ?>
     <style>
         .footer {
-            position: fixed !important;
-            bottom: 0 !important;
-            left: 0 !important;
-            width: 100% !important;
-            height: 30px !important;
-            background: #fff !important;
-            box-shadow: 1px 1px 5px #000 !important;
-            text-align: center !important;
-            z-index: 999999 !important;
-        }
-
-        /* Deja espacio al final de la página para que el footer no tape contenido */
-
-        body {
-            padding-bottom: 40px;
+            width: 100%;
+            bottom: 0;
+            height: 30px;
+            position: fixed;
+            background: #fff;
+            box-shadow: 1px 1px 5px #000;
+            text-align: center;
+            left: 0;
+            /* Alinear con el borde izquierdo de la pantalla */
+            right: 0;
+            /* Alinear con el borde derecho de la pantalla */
         }
     </style>
+
     <div class="footer">Ver 3.0</div>
 <?php
 }
-
-
 
 ##Encabezado de la pagina
 function head()

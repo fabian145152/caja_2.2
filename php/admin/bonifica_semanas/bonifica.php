@@ -18,9 +18,9 @@ $movil_param = trim($_GET['movil']);
 // --- Procesar actualización ---
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'update_cant') {
 
-    $movil_post = trim($_POST['movil'] ?? '');
-    $cant_semanas = trim($_POST['cant_semanas'] ?? '');
-    $x_semana = str_replace(',', '.', trim($_POST['x_semana'] ?? ''));
+    $movil_post = trim(isset($_POST['movil']) ? $_POST['movil'] : '');
+    $cant_semanas = trim(isset($_POST['cant_semanas']) ? $_POST['cant_semanas'] : '');
+    $x_semana = str_replace(',', '.', trim(isset($_POST['x_semana']) ? $_POST['x_semana'] : ''));
 
     if ($movil_post === '') {
         $mensaje = "Número de móvil inválido.";
@@ -261,7 +261,7 @@ if (!$result) {
                             <td data-label="X Semana"><?php echo htmlspecialchars($row['x_semana']); ?></td>
                             <td data-label="Cantidad">
                                 <input type="number" name="cant_semanas" min="0" step="1"
-                                    value="<?php echo htmlspecialchars($row['cant_semanas'] ?? ''); ?>">
+                                    value="<?php echo isset($row['cant_semanas']) ? htmlspecialchars($row['cant_semanas']) : ''; ?>">
                             </td>
                             <td data-label="Acción"><button type="submit" class="btn-update">Guardar</button></td>
                         </form>
