@@ -72,28 +72,29 @@
                 <li><b>OK OK (cod 40) voucher - semanas - ventas - postergar semana</b></li>
                 <li><b>OK OK (cod 41) voucher - semanas - saldo_a_favor</b></li>
                 <li><b>OK OK (cod 42) voucher - semanas - saldo a favor - ventas</b></li>
-                <li><b>OK OK (cod 43) voucher - semanas - Deuda anterior</b></li>
-                <li><b>OK OK (cod 44) voucher - semanas - Deuda anterior - postergar semana</b></li>
-                <li><b>OK OK (cod 45) voucher - Semanas - deuda anterior - ventas</b></li>
-                <li><b>OK OK (cod 46) voucher - Semanas - deuda anterior - ventas - postergar semana</b></li>
-                <li><b>OK OK (err 47) voucher - Semanas - deuda anterior - Saldo a favor</b></li>
-                <li><b>OK OK (err 48) voucher - semanas - deuda anterior - Saldo a favor - ventas</b></li>
-                <li><b>OK OK (cod 49) voucher - Deposito</b></li>
-                <li><b>OK OK (cod 50) voucher - Deposito - Ventas</b></li>
-                <li><b>OK OK (cod 51) voucher - deposito - saldo a favor</b></li>
-                <li><b>OK OK (cod 52) voucher - deposito - saldo a favor - ventas</b></li>
-                <li><b>OK OK (cod 53) voucher - deposito - deuda anterior</b></li>
-                <li><b>OK OK (cod 54) voucher - deposito - deuda anterior - ventas</b></li>
-                <li><b>OK OK (err 55) voucher - deposito - deuda anterior - saldo a favor</b></li>
-                <li><b>OK OK (err 56) voucher - deposito - deuda anterior - saldo a favor - ventas</b></li>
-                <li><b>OK OK (cod 57) voucher - deposito - semanas</b></li>
-                <li><b>OK OK (cod 58) voucher - deposito - semanas - ventas</b></li>
-                <li><b>OK OK (cod 59) voucher - deposito - semanas - saldo a favor - ventas</b></li>
-                <li><b>OK OK (cod 60) voucher - deposito - semanas - deuda anterior</b></li>
-                <li><b>OK OK (cod 61) voucher - deposito - semanas - deuda anterior - ventas</b></li>
-                <li><b>OK OK (err 62) voucher - deposito - semanas - deuda anterior - saldo a favor</b></li>
-                <li><b>OK OK (err 63) voucher - deposito - semanas- deuda anterior - saldo a favor - ventas</b></li>
-                <li><b>OK OK (cod 64) no voucher - no semanas - no deuda anterior - no Saldo a favor - no ventas - no deposito</b></li>
+                <li><b>OK OK (cod 42) voucher - semanas - saldo a favor - Deposito en FT</b></li>
+                <li><b>OK OK (cod 44) voucher - semanas - Deuda anterior</b></li>
+                <li><b>OK OK (cod 45) voucher - semanas - Deuda anterior - postergar semana</b></li>
+                <li><b>OK OK (cod 46) voucher - Semanas - deuda anterior - ventas</b></li>
+                <li><b>OK OK (cod 47) voucher - Semanas - deuda anterior - ventas - postergar semana</b></li>
+                <li><b>OK OK (err 48) voucher - Semanas - deuda anterior - Saldo a favor</b></li>
+                <li><b>OK OK (err 49) voucher - semanas - deuda anterior - Saldo a favor - ventas</b></li>
+                <li><b>OK OK (cod 50) voucher - Deposito</b></li>
+                <li><b>OK OK (cod 51) voucher - Deposito - Ventas</b></li>
+                <li><b>OK OK (cod 52) voucher - deposito - saldo a favor</b></li>
+                <li><b>OK OK (cod 53) voucher - deposito - saldo a favor - ventas</b></li>
+                <li><b>OK OK (cod 54) voucher - deposito - deuda anterior</b></li>
+                <li><b>OK OK (cod 55) voucher - deposito - deuda anterior - ventas</b></li>
+                <li><b>OK OK (err 56) voucher - deposito - deuda anterior - saldo a favor</b></li>
+                <li><b>OK OK (err 57) voucher - deposito - deuda anterior - saldo a favor - ventas</b></li>
+                <li><b>OK OK (cod 58) voucher - deposito - semanas</b></li>
+                <li><b>OK OK (cod 59) voucher - deposito - semanas - ventas</b></li>
+                <li><b>OK OK (cod 60) voucher - deposito - semanas - saldo a favor - ventas</b></li>
+                <li><b>OK OK (cod 61) voucher - deposito - semanas - deuda anterior</b></li>
+                <li><b>OK OK (cod 62) voucher - deposito - semanas - deuda anterior - ventas</b></li>
+                <li><b>OK OK (err 63) voucher - deposito - semanas - deuda anterior - saldo a favor</b></li>
+                <li><b>OK OK (err 64) voucher - deposito - semanas- deuda anterior - saldo a favor - ventas</b></li>
+                <li><b>OK OK (cod 65) no voucher - no semanas - no deuda anterior - no Saldo a favor - no ventas - no deposito</b></li>
             </div>
         </div>
         <br>

@@ -3,6 +3,7 @@ session_start();
 
 include_once "../../../../funciones/funciones.php";
 include_once "semana.php";
+include_once "mes.php";
 
 if (!isset($_SESSION['uname'])) {
     // Si la sesión expiró, redirige al login

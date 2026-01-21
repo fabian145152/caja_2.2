@@ -1,11 +1,9 @@
 <?php
-$archivo_encriptado = "licencia_encriptada.txt";
-?>
-<a href="../cobros/cobro_moviles"></a>
-<?php
+$archivo_encriptado = "syst_block.txt";
+
 
 $carpeta_destino = "../cobros/cobro_moviles"; // Carpeta donde se guardará el archivo
-$archivo_desencriptado = $carpeta_destino . "/licencia_desbloqueada.txt";
+$archivo_desencriptado = $carpeta_destino . "/mes.txt";
 
 $clave = hash('sha256', 'MiClaveSegura123', true);
 $metodo = "AES-256-CBC";
@@ -45,6 +43,7 @@ echo "<pre>";
 print_r($GLOBALS['mes_siguiente']);
 echo "</pre>";
 
+/*
 ##-------------------------------------
 // Borra archivos .txt
 if (file_exists($archivo_desencriptado)) {
@@ -55,7 +54,8 @@ if (file_exists($archivo_encriptado)) {
 }
 
 ##-------------------------------------
-
+*/
+//exit;
 
 echo "<script>
     alert('Licencia actualizada correctamente. La ventana se cerrará.');

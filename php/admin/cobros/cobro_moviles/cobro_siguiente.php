@@ -1,6 +1,6 @@
 <?php
 //session_start();
-//include_once "../../../../funciones/funciones.php";
+include_once "../../../../funciones/funciones.php";
 $con = conexion();
 $con->set_charset("utf8mb4");
 $deuda_ant = 0;
@@ -170,7 +170,8 @@ $sql_voucher = $con->query($sql_voucher);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VISTA COBRO</title>
     <?php head() ?>
-    <link rel="stylesheet" href="vista_con_voucher.css">
+    <link rel="stylesheet" href="../../../css/vista_con_voucher.css">
+
     <link rel="stylesheet" href="vista_cobro.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script>
@@ -195,7 +196,6 @@ $sql_voucher = $con->query($sql_voucher);
             window.close();
         }
     </script>
-
 </head>
 
 <body>
@@ -209,7 +209,8 @@ $sql_voucher = $con->query($sql_voucher);
 
                     echo date("d/m/Y");
                     ?>
-                    Se le esta cobrando la semana <?php echo $semana = date('W') - 1 ?>
+                    <!-- a semanas restarle 1 asi debe ser todo el año menos la ultima semana -->
+                    Se le esta cobrando la semana <?php echo $semana = date('W') -1?>
                 </h5>
 
 
@@ -305,9 +306,8 @@ $sql_voucher = $con->query($sql_voucher);
 
                             ?>
                             <th class="col-sm-12"><?php echo $tot_voucher ?></th>
-                            <!-- <th><a class="btn btn-danger btn-sm" style="width: 150px;" href="#" onclick="deleteProduct(<?php echo $row_voucher['id'] ?>)">BORRAR</a></th> -->
-                            <th><button class="eliminar btn btn-danger btn-sm" style="width: 150px;" data-id="<?php echo $row['id']; ?>">Eliminar</button></th>
-                            </th>
+                            <th><a class="btn btn-danger btn-sm" style="width: 150px;" href="#" onclick="deleteProduct(<?php echo $row_voucher['id'] ?>)">BORRAR</a></th>
+
                         </tr>
                 <?php
                 }
@@ -385,6 +385,7 @@ $sql_voucher = $con->query($sql_voucher);
             }
             if ($venta_1 != 0) {
             ?>
+
                 <h5>Compró: <?php echo $row_venta_1['nombre'] . " " . "a" . " " . "$" . $ven_1 = $row_venta_1['precio'] ?>-</h5>
                 <?php
                 $total_ventas = $ven_1 + $ven_2 + $ven_3 + $ven_4 + $ven_5;
@@ -392,6 +393,8 @@ $sql_voucher = $con->query($sql_voucher);
             <?php
             }
             ?>
+
+
 
             <!-- <form action="cobro_fin.php" method="post" id="formulario" target="_blank"> -->
             <form action="cobro_fin.php" method="post" id="formulario" name="formulario">
@@ -454,8 +457,10 @@ $sql_voucher = $con->query($sql_voucher);
                                     value="<?php echo $paga_x_viaje ?>" readonly>
                             </li>
                         <?php
+
                                 }
                                 echo "<br>";
+
                                 if ($cobra_semana_anterior == $paga_x_semana) {
                                     echo "<h4><strong>ESTA AL DIA...</strong></h4>";
                                 } else {
@@ -468,6 +473,7 @@ $sql_voucher = $con->query($sql_voucher);
                         ?>
 
                         </li>
+
 
                         <li>
                             <?php
@@ -489,6 +495,7 @@ $sql_voucher = $con->query($sql_voucher);
                             <label class="mi-label">TIENE SALDO A FAVOR:</label>
                             <input type="text" id="saldo_a_favor" name="saldo_a_favor" value="<?php echo $saldo_a_favor ?>"
                                 style="background-color: yellow; text-align: center; font-size: 18px; font-weight: bold;" readonly>
+
                         <?php
                         }
                         if ($saldo_a_favor == 0 && $deu_ant == 0 && $cobra_semana_anterior == 0 && $total_ventas == 0) {
@@ -506,12 +513,19 @@ $sql_voucher = $con->query($sql_voucher);
 
                             $cobra_1 = abs($cobra_1);
                             $cobra_2; // = abs($cobra_2);
+                            //Cobra 2 es la linea que se muestra
+                            //Cobra 1 es la que se cobra
+                            //$cobra_1 = $saldo_a_favor - $cobra_semana_anterior - $deu_ant - $total_ventas;
+                            //exit;
+
 
                             if ($deuda_anterior > 0) {
                             ?>
                                 <label class="mi-label">Deuda anterior:</label>
                                 <input type="text" id="deuda_ant" name="deuda_ant" value="<?php echo $deu_ant ?>"
                                     style="background-color: orange; color: black; text-align: center; font-size: 18px; font-weight: bold;" readonly>
+
+
 
                             <?php
                             }
@@ -669,6 +683,7 @@ $sql_voucher = $con->query($sql_voucher);
                                     ?>
                                     <input type="hidden" id="debe_abonar" name="debe_abonar" value="<?php echo $debe_abonar ?>">
 
+
                                     <?php
                                     $total_para_base = $cobra_semana_anterior + $total_ventas + $deu_ant - $saldo_a_favor;
                                     if ($viajes_que_no_se_cobraron >= 1) {
@@ -688,6 +703,7 @@ $sql_voucher = $con->query($sql_voucher);
                                     <input type="text" id="deuda_semanas_anteriores" name="deuda_semanas_anteriores"
                                         value="<?php echo $cobra_2 ?>" style='text-align: center; font-size: 22px; font-weight: bold; background-color: yellow;' readonly>
 
+
                             </li>
                             <br>
                         <?php
@@ -698,6 +714,14 @@ $sql_voucher = $con->query($sql_voucher);
                             <div class="recuadro" id="ing_via">
                                 <?php
                                     include "calcula_viajes.php";
+
+                                    ##------------------------------------------------------------------------------------------
+                                ?>
+
+
+                                <?php
+                                    ##------------------------------------------------------------------------------------------
+
                                 ?>
                             </div>
                         <?php
@@ -708,6 +732,10 @@ $sql_voucher = $con->query($sql_voucher);
                             <br>
                             <label class="mi-label" style='text-align: center; font-size: 22px; font-weight: bold;'>Deposito FT:</label>
                             <input type="text" id="dep_ft" name="dep_ft" style='text-align: center; font-size: 22px; font-weight: bold;' placeholder="Ingrese dinero" autofocus>
+
+
+                            <!---------------------------------------------------------------------------------- -->
+
 
 
                             <?php
@@ -722,6 +750,13 @@ $sql_voucher = $con->query($sql_voucher);
                                     }
                                 </style>
                                 <label class="mi-label"></label>
+                                <!--  
+                                  <button type="submit" maxlength="3" size="3" formaction="posterga_semana.php?movil=<?php echo $movil ?> & postergar_semana=<?php echo $postergar_semana ?>" class="btn btn-dark" target="_blank">POST SEMANAS</button>
+                                <input type="text" id="postergar_semana" name="postergar_semana" placeholder="N° de semanas..." value="0">
+                                -->
+
+
+
 
                             <?php
                             }
@@ -769,11 +804,13 @@ $sql_voucher = $con->query($sql_voucher);
                     </div>
                 </div>
             </form>
+
             <script>
                 document.getElementById('inputResultado').value = localStorage.getItem('resultadoResta') || '';
                 document.getElementById('inputPostergar').value = localStorage.getItem('postergar_semana') || '';
                 document.getElementById('inputMovil').value = localStorage.getItem('movil') || '';
             </script>
+
 
             <form action="depositar.php" method="get">
                 <input type="hidden" id="movil" name="movil" value="<?= $movil ?>">
@@ -791,51 +828,14 @@ $sql_voucher = $con->query($sql_voucher);
                 });
             </script>
 
+
+
+
             <br><br><br>
             <br><br><br>
 
     </div>
     <?php foot() ?>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-
-            var botones = document.querySelectorAll(".eliminar");
-
-            for (var i = 0; i < botones.length; i++) {
-                botones[i].addEventListener("click", function(e) {
-                    e.preventDefault();
-
-                    var id = this.getAttribute("data-id");
-                    var fila = this.closest("tr");
-
-                    if (!confirm("¿Eliminar este voucher?")) return;
-
-                    var xhr = new XMLHttpRequest();
-                    xhr.open("POST", "eliminar_voucher.php", true);
-                    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-
-                    xhr.onreadystatechange = function() {
-                        if (xhr.readyState === 4) {
-
-                            if (xhr.status === 200) {
-                                if (xhr.responseText.trim() === "OK") {
-                                    fila.parentNode.removeChild(fila);
-                                } else {
-                                    alert("Error: " + xhr.responseText);
-                                }
-                            } else {
-                                alert("Error de conexión");
-                            }
-                        }
-                    };
-
-                    xhr.send("id=" + encodeURIComponent(id));
-                });
-            }
-
-        });
-    </script>
-
 </body>
 
 </html>

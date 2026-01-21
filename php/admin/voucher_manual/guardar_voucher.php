@@ -42,18 +42,9 @@ $stmt->execute();
 
 if ($stmt->affected_rows > 0) {
     echo "<br>Registro insertado correctamente.";
-?>
-    <script>
-        alert("Voucher creado correctamente");
-    </script>
-<?php
 } else {
     echo "<br>Error al insertar el registro: " . $stmt->error;
 }
 
 $stmt->close();
-echo "<script>
-    window.close();
-</script>";
-
-//header("inicio_v_manual.php");
+header("../../menu_admin.php");

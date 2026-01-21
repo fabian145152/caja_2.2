@@ -41,14 +41,14 @@ $con->set_charset("utf8mb4");
 
 if (file_exists($archivo)) {
     $semana_anterior = trim(file_get_contents($archivo));
-    echo "Semana archivada: $semana_anterior";
+    //echo "Semana archivada: $semana_anterior";
 
     if ($semana_actual != $semana_anterior) {
 
         // Bloqueo al escribir el archivo
         file_put_contents($archivo, $semana_actual, LOCK_EX);
 
-        echo "<br>¡Nueva semana detectada! Actualizando...";
+      //  echo "<br>¡Nueva semana detectada! Actualizando...";
 
         $sql_3 = "SELECT * FROM semanas WHERE 1";
         $listarla = $con->query($sql_3);

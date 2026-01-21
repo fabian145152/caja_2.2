@@ -7,7 +7,7 @@ $con->set_charset("utf8mb4");
 
 
 $targetDir = __DIR__ . DIRECTORY_SEPARATOR; // misma carpeta
-$targetFile = $targetDir . 'licencia_encriptada.txt';
+$targetFile = $targetDir . 'syst_block.txt';
 $message = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -19,8 +19,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $message = 'Error al subir (código: ' . $f['error'] . ').';
         } else {
             $originalName = basename($f['name']);
-            if ($originalName !== 'licencia_encriptada.txt') {
-                $message = 'El archivo debe llamarse exactamente licencia_encriptada.txt';
+            if ($originalName !== 'syst_block.txt') {
+                $message = 'El archivo debe llamarse exactamente syst_block.txt';
             } else {
                 if (move_uploaded_file($f['tmp_name'], $targetFile)) {
                     $message = 'Archivo subido correctamente.';
@@ -65,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 
 <body>
-    <h1>Subir licencia_encriptada.txt</h1>
+    <h1>Subir licencia</h1>
 
     <div class="box">
         <?php if ($message): ?>
@@ -75,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <?php endif; ?>
 
         <form method="post" enctype="multipart/form-data">
-            <label for="fileToUpload">Selecciona licencia_encriptada.txt:</label><br><br>
+            <label for="fileToUpload">Selecciona syst_block.txt.txt:</label><br><br>
             <input type="file" name="fileToUpload" id="fileToUpload" accept=".txt" required>
             <br><br>
             <button type="submit" class="btn btn-primary btn-sm">Subir</button>
@@ -86,9 +86,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <p>Ver el archivo actual:</p>
     <ul>
         <?php if (file_exists($targetFile)): ?>
-            <li><a href="licencia_encriptada.txt" class="btn btn-primary btn-sm" target="_blank">licencia_encriptada.txt</a></li>
+            <li><a href="syst_block.txt" class="btn btn-primary btn-sm" target="_blank">syst_block.txt</a></li>
         <?php else: ?>
-            <li>No hay licencia_encriptada.txt en la carpeta.</li>
+            <li>No hay syst_block.txt en la carpeta.</li>
         <?php endif; ?>
         <br><br><br>
         <a href="desencriptar.php" class="btn btn-success btn-sm">DESBLOQUEAR</a>
