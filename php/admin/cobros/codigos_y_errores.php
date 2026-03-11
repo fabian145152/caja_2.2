@@ -72,7 +72,7 @@
                 <li><b>OK OK (cod 40) voucher - semanas - ventas - postergar semana</b></li>
                 <li><b>OK OK (cod 41) voucher - semanas - saldo_a_favor</b></li>
                 <li><b>OK OK (cod 42) voucher - semanas - saldo a favor - ventas</b></li>
-                <li><b>OK OK (cod 42) voucher - semanas - saldo a favor - Deposito en FT</b></li>
+                <li><b>OK OK (cod 43) voucher - semanas - saldo a favor - Deposito en FT</b></li>
                 <li><b>OK OK (cod 44) voucher - semanas - Deuda anterior</b></li>
                 <li><b>OK OK (cod 45) voucher - semanas - Deuda anterior - postergar semana</b></li>
                 <li><b>OK OK (cod 46) voucher - Semanas - deuda anterior - ventas</b></li>

@@ -46,5 +46,9 @@ if ($stmt->affected_rows > 0) {
     echo "<br>Error al insertar el registro: " . $stmt->error;
 }
 
-$stmt->close();
-header("../../menu_admin.php");
+//$stmt->close();
+
+?>
+<script>
+    window.close();
+</script>

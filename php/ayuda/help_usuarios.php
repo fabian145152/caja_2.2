@@ -69,7 +69,7 @@ include_once "../../funciones/funciones.php";
             <li><a href="#tarifas">12_ TARIFAS "Configurar undades para cobrar".</a></li>
             <li><a href="#viajes">13_ Importe de los viajes.</a></li>
             <li><a href="#semanas">14_ Abonos semanales.</a></li>
-            <li><a href="#cobrar_moviles_tropas"></a>15_ Cobrar a moviles y tropas.</li>
+            <li><a href="#cobrar_moviles_tropas">15_ Cobrar a moviles y tropas.</a></li>
             <li><a href="#bonifica_semanas"></a>16_ Editar cantidad de semanas.</li>
             <li><a href="#bonifica_deuda"></a>17_ Bonifica deuda.</li>
             <li><a href="#genera_deuda"></a>18_ Genera deuda.</li>
@@ -263,7 +263,21 @@ include_once "../../funciones/funciones.php";
         </section>
         <section id="cobrar_moviles_tropas">
             <h1>15_ Cobrar a moviles y tropas.</h1>
-
+            <ul>
+                <li>En esta pagina se cobran los moviles y tropas.</li>
+                <li>puede entrar a ver el saldo del móvil (ingresando en Cobrar a móvil) o de la tropa.</li>
+                <li>Se puede ver el importe que se debe pagar por viaje o por semana.</li>
+                <li>la cantidad de voucher que tiene cargados y los descuentos.</li>
+                <li>Le pedira que ingrese efectivo si es necesario, sino se cobrara de los voucher depositados y en el caso que sobre o falte dinero, dejará saldo a favor o deuda, la que se cargara para coobrar la semana que viene.</li>
+                <li>Donde dice Comentario se puede editar el texto que se vera en esta pagina que puede ser utilizado como recordatorio de esta unidad.</li>
+                <li>Se puede ver el importe que se debe pagar por viaje o por semana.</li>
+                <li>Volviendo al inicio de cobros a moviles o a tropas, infresando el numero de tropa mostrara una pantalla donde se vera lo siguinte.</li>
+                <li>El total a cobrar de la tropa.</li>
+                <li>El detalle de cada uno de los choferes que componen la tropa.</li>
+                <li>El boton detalles de cada uno de los choferes muestra el detalle del cobro de cada uno de ellos.</li>
+                <li>El boton cobrar le cobra a toda la tropa de una sola vez.</li>
+                <li>La deuda que quede o el saldo a favor restante se le cargaran al móvil con numero máss bajo de unidad</li>
+            </ul>
         </section>
 
 

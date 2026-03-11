@@ -1763,12 +1763,13 @@ if ($tot_voucher > 0 && $new_dep_ft == 0 && $debe_semanas > 0 && $deuda_anterior
 }
 
 
-//OK --------- (cod 43) voucher - semanas - saldo a favor - depositoft
+
+//OK --------- (cod 43) voucher - semanas - saldo a favor - deposito ft
 if ($tot_voucher > 0 && $new_dep_ft > 0 && $debe_semanas > 0 && $deuda_anterior == 0 && $saldo_a_favor > 0 && $ventas == 0 && $postergar_semana == 0) {
     echo "<b>(cod 43) voucher - semanas - saldo a favor - Dep FT</b>";
     include_once "../../../../includes/cant_viajes.php";
     echo "<br>Ventas: " . $ventas;
-    
+
     echo "<br>Nuevo deposito ft: " . $new_dep_ft;
     echo "<br>Debe semanas: " . $debe_semanas;
     echo "<br>Saldo leido a favor: " . $saldo_leido = $row_comp['saldo_a_favor_ft'];
@@ -1777,7 +1778,7 @@ if ($tot_voucher > 0 && $new_dep_ft > 0 && $debe_semanas > 0 && $deuda_anterior 
     echo "<br>Comision para base: " . $diez = $tot_voucher * .1;
     echo "<br>Para el movil: " . $noventa = $tot_voucher * .9;
     echo "<br>Total para movil: " . $total_p_movil = $saldo_leido + $noventa - $debe_semanas - $ventas - $paga_de_viajes;
-
+    //exit;
     if ($total_p_movil > 0) {
         echo "<br>Sobra plata";
         echo "<br>Total para movil: " . $total_p_movil;
@@ -1788,7 +1789,7 @@ if ($tot_voucher > 0 && $new_dep_ft > 0 && $debe_semanas > 0 && $deuda_anterior 
         echo "<br>Comision para base: " . $diez = $tot_voucher * .1;
         echo "<br>Para el movil: " . $noventa = $tot_voucher * .9;
         echo "<br>Paga de viajes: " . $paga_de_viajes;
-        $saldo_a_favor = $total_p_movil;
+        echo "Saldo a favor: " . $saldo_a_favor = $total_p_movil + $new_dep_ft;
         $deuda_anterior = 0;
         $venta_1 = 0;
         $venta_2 = 0;
@@ -1812,7 +1813,9 @@ if ($tot_voucher > 0 && $new_dep_ft > 0 && $debe_semanas > 0 && $deuda_anterior 
         echo "<br>Comision para base: " . $diez = $tot_voucher * .1;
         echo "<br>Para el movil: " . $noventa = $tot_voucher * .9;
         echo "<br>Paga de viajes: " . $paga_de_viajes;
-        $deuda_anterior = $total_p_movil;
+        $total_p_movil = $total_p_movil - $new_dep_ft;
+        echo "<br>Deuda anterior: " . $deuda_anterior = $total_p_movil;
+
         $saldo_a_favor = 0;
         $venta_1 = 0;
         $venta_2 = 0;
@@ -1843,16 +1846,19 @@ if ($tot_voucher > 0 && $new_dep_ft > 0 && $debe_semanas > 0 && $deuda_anterior 
         $venta_3 = 0;
         $venta_4 = 0;
         $venta_5 = 0;
-        //exit;
+        exit;
         guardaCajaFinal($con, $movil, $fecha, $new_dep_ft, $saldo_ft, $saldo_voucher, $dep_voucher, $usuario, $observaciones, $diez, $noventa, $paga_de_viajes);
         borraVoucher($con, $movil);
         actDeuAntSalaFavor($con, $movil, $deuda_anterior, $saldo_a_favor, $venta_1, $venta_2, $venta_3, $venta_4, $venta_5);
         viajesSemSig($con, $movil, $viajes_semana_que_viene);
         actualizaSemPagadas($con, $movil, $total);
     }
+    //exit;
     header("Location:inicio_cobros.php");
     exit;
 }
+
+
 
 //OK --------- (cod 44) voucher - semanas - Deuda anterior
 if ($tot_voucher > 0 && $new_dep_ft == 0 && $debe_semanas > 0 && $deuda_anterior > 0 && $saldo_a_favor == 0 && $ventas == 0 && $postergar_semana == 0) {
@@ -2776,18 +2782,18 @@ if ($tot_voucher > 0 && $new_dep_ft > 0 && $debe_semanas > 0 && $deuda_anterior 
 //OK --------- (err cod 63) voucher - deposito - semanas - deuda anterior - saldo a favor
 if ($tot_voucher > 0 && $new_dep_ft > 0 && $debe_semanas > 0 && $deuda_anterior > 0 && $saldo_a_favor > 0 && $ventas == 0 && $postergar_semana == 0) {
     echo "<b>(err cod 63) voucher - deposito - semanas - deuda anterior - saldo a favor</b>";
-    echo "<br><a href='../inicio_cobros.php'>Volver</a>";
+    echo "<br><a href='inicio_cobros.php'>Volver</a>";
     exit;
 }
 //OK --------- (err cod 64) voucher - deposito - semanas- deuda anterior - saldo a favor - ventas
 if ($tot_voucher > 0 && $new_dep_ft > 0 && $debe_semanas > 0 && $deuda_anterior > 0 && $saldo_a_favor > 0 && $ventas > 0 && $postergar_semana == 0) {
     echo "<b>(err cod 64) voucher - deposito - semanas- deuda anterior - saldo a favor - ventas</b>";
-    echo "<br><a href='../inicio_cobros.php'>Volver</a>";
+    echo "<br><a href='inicio_cobros.php'>Volver</a>";
     exit;
 }
 //OK -------- (cod 65) No Nada
 if ($tot_voucher == 0 && $new_dep_ft == 0 && $debe_semanas == 0 && $deuda_anterior == 0 && $saldo_a_favor == 0 && $ventas == 0 && $postergar_semana == 0) {
     echo "<b>(cod 65) No Nada</b>";
-    echo "<br><a href='../inicio_cobros.php'>Volver</a>";
+    echo "<br><a href='inicio_cobros.php'>Volver</a>";
     exit;
 }
