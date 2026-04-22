@@ -5,7 +5,8 @@ include_once "../../../funciones/funciones.php";
 $con = conexion();
 $con->set_charset("utf8mb4");
 
-$movil = $_POST['movil'] ?? null;
+//$movil = $_POST['movil'] ?? null;
+$movil = isset($_POST['movil']) ? $_POST['movil'] : null;
 
 if (!$movil) {
     die("No se recibió el número de móvil.");
@@ -26,8 +27,12 @@ if ($result->num_rows === 0) {
 }
 
 $row = $result->fetch_assoc();
-$saldo_a_favor = $row['saldo_a_favor_ft'] ?? 0;
-$deuda_anterior = $row['deuda_anterior'] ?? 0;
+
+//$saldo_a_favor = $row['saldo_a_favor_ft'] ?? 0;
+//$deuda_anterior = $row['deuda_anterior'] ?? 0;
+
+$saldo_a_favor = isset($row['saldo_a_favor_ft']) ? $row['saldo_a_favor_ft'] : 0;
+$deuda_anterior = isset($row['deuda_anterior']) ? $row['deuda_anterior'] : 0;
 
 $stmt->close();
 $con->close();

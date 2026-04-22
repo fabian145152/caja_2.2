@@ -5,8 +5,13 @@ include_once "../../../funciones/funciones.php";
 $con = conexion();
 $con->set_charset("utf8mb4");
 
-$movil = $_POST['movil'] ?? null;
-$nuevo_saldo = $_POST['saldo_a_favor'] ?? null;
+//$movil = $_POST['movil'] ?? null;
+
+$movil = isset($_POST['movil']) ? $_POST['movil'] : null;
+
+//$nuevo_saldo = $_POST['saldo_a_favor'] ?? null;
+
+$nuevo_saldo = isset($_POST['saldo_a_favor']) ? $_POST['saldo_a_favor'] : null;
 
 if (!$movil || $nuevo_saldo === null) {
     die("Datos incompletos.");
